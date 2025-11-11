@@ -8,6 +8,18 @@
     -fx-font-weight: bold;
 }
 
+.btn2{
+    -fx-background-color: #eb1329;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.btn3{
+    -fx-background-color: #18ef35;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
 .textPane{
     -fx-background-color: white;
     -fx-border-color: rgba(76, 73, 73, 0.83);

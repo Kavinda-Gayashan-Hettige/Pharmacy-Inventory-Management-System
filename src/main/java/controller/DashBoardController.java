@@ -2,12 +2,15 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class DashBoardController {
+    public AnchorPane loadFormContent;
+
     public void btnDashboardFormOnAction(ActionEvent actionEvent) {
     }
 
@@ -24,8 +27,17 @@ public class DashBoardController {
     }
 
     public void btnSalePOSFormOnAction(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/sale-POS.fxml"))));
-        stage.show();
+//        Stage stage = new Stage();
+//        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/sale-POS_form.fxml"))));
+//        stage.show();
+
+        URL resource = this.getClass().getResource("/view/sale-POS_form.fxml");
+
+        assert resource != null;
+
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContent.getChildren().clear();
+        loadFormContent.getChildren().add(load);
     }
 }
