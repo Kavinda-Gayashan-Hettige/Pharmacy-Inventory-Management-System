@@ -11,7 +11,15 @@ import java.net.URL;
 public class DashBoardController {
     public AnchorPane loadFormContent;
 
-    public void btnDashboardFormOnAction(ActionEvent actionEvent) {
+    public void btnDashboardFormOnAction(ActionEvent actionEvent) throws IOException {
+        URL resource = this.getClass().getResource("/view/home_form.fxml");
+
+        assert resource != null;
+
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContent.getChildren().clear();
+        loadFormContent.getChildren().add(load);
     }
 
     public void btnMedicineFormOnAction(ActionEvent actionEvent) {

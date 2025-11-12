@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" layoutX="-2.0" layoutY="-1.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
+      <TableView fx:id="tblExpiringMedicines" layoutX="59.0" layoutY="325.0" prefHeight="192.0" prefWidth="238.0" stylesheets="@css/style.css">
+         <columns>
+            <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="colExpiryDate" prefWidth="84.0" text="Expiry Date" />
+            <TableColumn fx:id="colQty" prefWidth="78.4" text="Qty" />
+         </columns>
+      </TableView>
+      <Label layoutX="479.0" layoutY="282.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Low Stock Items" textFill="#faf8f8">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblLowStockItems" layoutX="430.0" layoutY="321.0" prefHeight="200.0" prefWidth="246.0" stylesheets="@css/style.css">
+         <columns>
+            <TableColumn fx:id="colName2" prefWidth="76.0" text="Name" />
+            <TableColumn fx:id="colRemaining" prefWidth="92.79998779296875" text="Remaining" />
+            <TableColumn fx:id="colQty2" prefWidth="76.0" text="Qty" />
+         </columns>
+      </TableView>
+      <Label layoutX="98.0" layoutY="287.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Expiring Medicines" textFill="#faf8f8">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="272.0" layoutY="-6.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" styleClass="lable" stylesheets="@css/style.css" text="Dashboard" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9fbfc" height="166.0" layoutX="50.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9fbfc" height="166.0" layoutX="265.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9fbfc" height="166.0" layoutX="479.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Label layoutX="520.0" layoutY="80.0" style="-fx-padding:10;" text="Today's Sales" />
+      <Label fx:id="lblTodaysSales" layoutX="496.0" layoutY="150.0" prefHeight="35.0" prefWidth="166.0" text="0" />
+      <Label layoutX="289.0" layoutY="83.0" style="-fx-padding:10;" text="Low Stock Medicines" />
+      <Label fx:id="lblLowStockMedicines" contentDisplay="CENTER" layoutX="288.0" layoutY="148.0" prefHeight="33.0" prefWidth="166.0" text="0" />
+      <Label fx:id="lblTotalMedicine" contentDisplay="CENTER" layoutX="67.0" layoutY="148.0" prefHeight="33.0" prefWidth="166.0" text="0" textAlignment="CENTER" />
+      <Label layoutX="77.0" layoutY="82.0" style="-fx-padding:10;" text="Total Medicines" />
+   </children>
+</AnchorPane>

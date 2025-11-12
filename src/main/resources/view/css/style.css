@@ -14,10 +14,20 @@
     -fx-font-weight: bold;
 }
 
+.lable{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 24;
+}
+
 .btn3{
     -fx-background-color: #18ef35;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+}
+
+.background{
+    -fx-background-color: #00fffb;
 }
 
 .textPane{
