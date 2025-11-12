@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 
 public class SettingsController {
 
+    public TextField txtLowStockAleart;
+    public TextField txtExpiryAleart;
     @FXML
     private Button btnResetToDefault;
 
