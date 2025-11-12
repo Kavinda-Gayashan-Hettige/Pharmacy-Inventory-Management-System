@@ -47,5 +47,6 @@ public class DashBoardController {
 
         loadFormContent.getChildren().clear();
         loadFormContent.getChildren().add(load);
+
     }
 }
