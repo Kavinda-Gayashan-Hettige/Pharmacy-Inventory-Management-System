@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.SuppliersController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuppliersController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
+      <Label layoutX="289.0" layoutY="-9.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" styleClass="lable" stylesheets="@css/style.css" text="Supplier" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtSearch" layoutX="64.0" layoutY="58.0" onAction="#txtSearchOnAction" prefHeight="26.0" prefWidth="274.0" />
+      <ImageView fitHeight="26.0" fitWidth="20.0" layoutX="31.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/search-interface-symbol.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnFilterByName" layoutX="69.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterByNameOnAction" text="Filter by Name" />
+      <Button fx:id="btnFilterBySupplier" layoutX="232.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterBySupplierOnAction" text="Filter by Supplier" />
+      <Button fx:id="btnAddSupplier" layoutX="392.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnAddSupplierOnAction" text="+  Add Supplier" />
+      <Button fx:id="btnDeleteSupplier" layoutX="392.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnDeleteSupplierOnAction" text="Delete Supplier" />
+      <Button fx:id="btnUndo1" layoutX="633.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnUndo1OnAction" text="Undo" />
+      <Button fx:id="btnUndo2" layoutX="633.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnUndo2OnAction" text="Undo" />
+      <TableView layoutX="34.0" layoutY="147.0" prefHeight="366.0" prefWidth="670.0">
+         <columns>
+            <TableColumn fx:id="colMedicineID" prefWidth="104.80001831054688" text="Medicine ID" />
+            <TableColumn fx:id="colBrand" prefWidth="132.0" text="Brand" />
+            <TableColumn fx:id="colExpiryDate" prefWidth="112.0" text="Expiry Date" />
+            <TableColumn fx:id="colQuantity" prefWidth="81.59991455078125" text="Quantity" />
+            <TableColumn fx:id="colSellingPrice" prefWidth="112.800048828125" text="Selling Price" />
+            <TableColumn fx:id="colSupplier" prefWidth="131.199951171875" text="Supplier" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnDelete" layoutX="567.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" text="Delete" />
+      <Button fx:id="btnRedo" layoutX="568.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnRedoOnAction" text="Redo" />
+   </children>
 </AnchorPane>
