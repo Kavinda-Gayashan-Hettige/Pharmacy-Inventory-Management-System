@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,13 @@ import java.net.URL;
 
 public class DashBoardController {
     public AnchorPane loadFormContent;
+    public JFXButton btnSalesHistory;
+    public JFXButton btnSalePOSForm;
+    public JFXButton btnSettingsForm;
+    public JFXButton btnReportsForm;
+    public JFXButton btnSupplierForm;
+    public JFXButton btnMedicineForm;
+    public JFXButton btnDashboardForm;
 
     public void btnDashboardFormOnAction(ActionEvent actionEvent) throws IOException {
         URL resource = this.getClass().getResource("/view/home_form.fxml");
@@ -64,5 +72,16 @@ public class DashBoardController {
         loadFormContent.getChildren().clear();
         loadFormContent.getChildren().add(load);
 
+    }
+
+    public void btnSalesHistoryFormOnAction(ActionEvent actionEvent) throws IOException {
+        URL resource = this.getClass().getResource("/view/sales_history_form.fxml");
+
+        assert resource != null;
+
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContent.getChildren().clear();
+        loadFormContent.getChildren().add(load);
     }
 }

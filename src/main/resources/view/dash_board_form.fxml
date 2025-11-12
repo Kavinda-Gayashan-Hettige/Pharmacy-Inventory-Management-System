@@ -9,22 +9,22 @@
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashBoardController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0c2e4d" height="614.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="217.0" />
-      <JFXButton layoutX="28.0" layoutY="134.0" onAction="#btnDashboardFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Dashboard">
+      <JFXButton fx:id="btnDashboardForm" layoutX="28.0" layoutY="134.0" onAction="#btnDashboardFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Dashboard">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="28.0" layoutY="190.0" onAction="#btnMedicineFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Medicines">
+      <JFXButton fx:id="btnMedicineForm" layoutX="28.0" layoutY="190.0" onAction="#btnMedicineFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Medicines">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="27.0" layoutY="245.0" onAction="#btnSupplierFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Suppliers">
+      <JFXButton fx:id="btnSupplierForm" layoutX="27.0" layoutY="245.0" onAction="#btnSupplierFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Suppliers">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="27.0" layoutY="300.0" onAction="#btnReportsFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Reports">
+      <JFXButton fx:id="btnReportsForm" layoutX="27.0" layoutY="300.0" onAction="#btnReportsFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Reports">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
@@ -47,17 +47,17 @@
          </font>
       </Label>
       <Label layoutX="741.0" layoutY="28.0" prefHeight="22.0" prefWidth="136.0" text="Welcome, Mr. Kamal" />
-      <JFXButton layoutX="28.0" layoutY="465.0" onAction="#btnSettingsFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Settings">
+      <JFXButton fx:id="btnSettingsForm" layoutX="28.0" layoutY="465.0" onAction="#btnSettingsFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Settings">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="28.0" layoutY="410.0" onAction="#btnSalePOSFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Sale POS">
+      <JFXButton fx:id="btnSalePOSForm" layoutX="28.0" layoutY="410.0" onAction="#btnSalePOSFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Sale POS">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="28.0" layoutY="355.0" onAction="#btnSalePOSFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Sales History">
+      <JFXButton fx:id="btnSalesHistory" layoutX="28.0" layoutY="355.0" onAction="#btnSalesHistoryFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Sales History">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>

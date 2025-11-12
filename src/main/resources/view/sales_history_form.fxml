@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.SalesHistoryController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalesHistoryController">
+   <children>
+      <TableView layoutX="44.0" layoutY="170.0" prefHeight="200.0" prefWidth="595.0">
+        <columns>
+          <TableColumn fx:id="colInvoiceNo" prefWidth="91.20001220703125" text="Invoice No" />
+          <TableColumn fx:id="colDate" prefWidth="116.00006103515625" text="Date" />
+            <TableColumn fx:id="colCustomerName" prefWidth="156.00006103515625" text="Customer Name" />
+            <TableColumn fx:id="colTotal" prefWidth="107.20001220703125" text="Total (Rs)" />
+            <TableColumn fx:id="colPaymentType" prefWidth="127.99993896484375" text="Payment Type" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnViewInvoice" layoutX="502.0" layoutY="389.0" mnemonicParsing="false" onAction="#btnViewInvoiceOnAction" prefHeight="30.0" prefWidth="122.0" styleClass="btn" stylesheets="@css/style.css" text="View Invoice">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnReprintInvoice" layoutX="503.0" layoutY="427.0" mnemonicParsing="false" onAction="#btnReprintInvoiceOnAction" prefHeight="30.0" prefWidth="122.0" styleClass="btn3" text="Reprint Invoice">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeleteRecord" layoutX="503.0" layoutY="467.0" mnemonicParsing="false" onAction="#btnDeleteRecordOnAction" prefHeight="30.0" prefWidth="122.0" styleClass="btn2" text="Delete Record">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="18.0" fitWidth="20.0" layoutX="639.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/search-interface-symbol.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtSearch" layoutX="314.0" layoutY="84.0" onAction="#txtSearchOnAction" prefHeight="26.0" prefWidth="312.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
+      <Label layoutX="274.0" layoutY="-5.0" prefHeight="56.0" prefWidth="176.0" style="-fx-padding:10;" styleClass="lable" stylesheets="@css/style.css" text="Sales History" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f5f9fc" height="26.0" layoutX="51.0" layoutY="84.0" stroke="#f4efef" strokeType="INSIDE" width="200.0" />
+      <Label layoutX="75.0" layoutY="88.0" prefHeight="18.0" prefWidth="52.0" text="From" />
+      <Label fx:id="lblDate" layoutX="159.0" layoutY="88.0" prefHeight="18.0" prefWidth="107.0" text="2025-04-15" />
+   </children>
 </AnchorPane>
