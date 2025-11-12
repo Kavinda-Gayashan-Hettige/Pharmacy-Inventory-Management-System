@@ -52,7 +52,15 @@ public class DashBoardController {
         loadFormContent.getChildren().add(load);
     }
 
-    public void btnReportsFormOnAction(ActionEvent actionEvent) {
+    public void btnReportsFormOnAction(ActionEvent actionEvent) throws IOException {
+        URL resource = this.getClass().getResource("/view/reports_form.fxml");
+
+        assert resource != null;
+
+        Parent load = FXMLLoader.load(resource);
+
+        loadFormContent.getChildren().clear();
+        loadFormContent.getChildren().add(load);
     }
 
     public void btnSettingsFormOnAction(ActionEvent actionEvent) {

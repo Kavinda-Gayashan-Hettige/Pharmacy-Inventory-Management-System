@@ -14,6 +14,18 @@
     -fx-font-weight: bold;
 }
 
+.btnWhite{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.btnBlue{
+    -fx-background-color: #41bbfd;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
 .lable{
     -fx-text-fill: white;
     -fx-font-weight: bold;

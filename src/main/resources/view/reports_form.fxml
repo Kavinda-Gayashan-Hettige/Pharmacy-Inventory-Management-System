@@ -1,14 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.ReportsController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReportsController">
+   <children>
+      <Label layoutX="111.0" layoutY="87.0" text="Select Report Type">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="97.0" layoutY="362.0" text="From" />
+      <Label layoutX="271.0" layoutY="362.0" text="To" />
+      <Label layoutX="111.0" layoutY="306.0" text="Filter by Date Range">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnDailySalesReport" layoutX="111.0" layoutY="144.0" mnemonicParsing="false" onAction="#btnDailySalesReportOnAction" prefHeight="30.0" prefWidth="173.0" styleClass="btnWhite" text="Daily Sales Report">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="btnMonthlySalesReport" layoutX="111.0" layoutY="197.0" mnemonicParsing="false" onAction="#btnMonthlySalesReportOnAction" prefHeight="30.0" prefWidth="173.0" styleClass="btnWhite" text="Monthly Sales Report">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button fx:id="btnStockSummary" layoutX="111.0" layoutY="247.0" mnemonicParsing="false" onAction="#btnStockSummaryOnAction" prefHeight="30.0" prefWidth="174.0" styleClass="btnWhite" text="Stock Summary">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <TextField fx:id="txtToDate" layoutX="222.0" layoutY="400.0" promptText="2026-01-14" />
+      <TextField fx:id="txtFromDate" layoutX="57.0" layoutY="400.0" promptText="2025-02-27" />
+      <Button fx:id="btnGenerateReport" layoutX="191.0" layoutY="476.0" mnemonicParsing="false" onAction="#btnGenerateReportOnAction" styleClass="btnBlue" text="Generate Report">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" layoutY="-1.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
+      <Label layoutX="289.0" layoutY="-10.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" styleClass="lable" stylesheets="@css/style.css" text="Reports" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="425.0" layoutY="115.0" prefHeight="372.0" prefWidth="244.0" />
+   </children>
 </AnchorPane>
