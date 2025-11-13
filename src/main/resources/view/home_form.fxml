@@ -7,7 +7,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" layoutX="-2.0" layoutY="-1.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
@@ -18,7 +17,7 @@
             <TableColumn fx:id="colQty" prefWidth="78.4" text="Qty" />
          </columns>
       </TableView>
-      <Label layoutX="479.0" layoutY="282.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Low Stock Items" textFill="#faf8f8">
+      <Label layoutX="479.0" layoutY="282.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Low Stock Items" textFill="#201f1f">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -30,7 +29,7 @@
             <TableColumn fx:id="colQty2" prefWidth="76.0" text="Qty" />
          </columns>
       </TableView>
-      <Label layoutX="98.0" layoutY="287.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Expiring Medicines" textFill="#faf8f8">
+      <Label layoutX="98.0" layoutY="287.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Expiring Medicines" textFill="#201f1f">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>

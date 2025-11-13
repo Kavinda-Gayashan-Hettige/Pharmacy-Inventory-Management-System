@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -39,7 +41,20 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="loadFormContent" layoutX="216.0" layoutY="73.0" prefHeight="540.0" prefWidth="694.0" stylesheets="@css/style.css" />
+      <AnchorPane fx:id="loadFormContent" layoutX="216.0" layoutY="73.0" prefHeight="540.0" prefWidth="694.0" stylesheets="@css/style.css">
+         <children>
+            <ImageView fitHeight="347.0" fitWidth="705.0" layoutX="1.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/pharmacy-management.jpg" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="195.0" layoutX="2.0" stroke="#41bbfd" strokeType="INSIDE" width="694.0" />
+            <Label layoutX="200.0" layoutY="54.0" text="Welcome" textFill="#fcfafa">
+               <font>
+                  <Font name="System Bold" size="56.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="73.0" stroke="#faf6f6" strokeType="INSIDE" width="910.0" />
       <Label layoutX="23.0" layoutY="3.0" prefHeight="66.0" prefWidth="423.0" text="Pharmacy Inventory Management System" textFill="#1b1a1a">
          <font>

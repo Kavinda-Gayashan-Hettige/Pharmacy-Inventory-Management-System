@@ -11,7 +11,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SuppliersController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
@@ -26,12 +25,12 @@
             <Image url="@image/search-interface-symbol.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnFilterByName" layoutX="69.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterByNameOnAction" text="Filter by Name" />
-      <Button fx:id="btnFilterBySupplier" layoutX="232.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterBySupplierOnAction" text="Filter by Supplier" />
-      <Button fx:id="btnAddSupplier" layoutX="392.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnAddSupplierOnAction" text="+  Add Supplier" />
-      <Button fx:id="btnDeleteSupplier" layoutX="392.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnDeleteSupplierOnAction" text="Delete Supplier" />
-      <Button fx:id="btnUndo1" layoutX="633.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnUndo1OnAction" text="Undo" />
-      <Button fx:id="btnUndo2" layoutX="633.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnUndo2OnAction" text="Undo" />
+      <Button fx:id="btnFilterByName" layoutX="69.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterByNameOnAction" styleClass="btn" text="Filter by Name" />
+      <Button fx:id="btnFilterBySupplier" layoutX="232.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterBySupplierOnAction" styleClass="btn2" text="Filter by Supplier" />
+      <Button fx:id="btnAddSupplier" layoutX="392.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnAddSupplierOnAction" styleClass="btn3" text="+  Add Supplier" />
+      <Button fx:id="btnDeleteSupplier" layoutX="392.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnDeleteSupplierOnAction" styleClass="btn3" text="Delete Supplier" />
+      <Button fx:id="btnUndo1" layoutX="633.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnUndo1OnAction" styleClass="btnWhite" text="Undo" />
+      <Button fx:id="btnUndo2" layoutX="633.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnUndo2OnAction" styleClass="btnWhite" text="Undo" />
       <TableView layoutX="34.0" layoutY="147.0" prefHeight="366.0" prefWidth="670.0">
          <columns>
             <TableColumn fx:id="colMedicineID" prefWidth="104.80001831054688" text="Medicine ID" />
@@ -42,7 +41,7 @@
             <TableColumn fx:id="colSupplier" prefWidth="131.199951171875" text="Supplier" />
          </columns>
       </TableView>
-      <Button fx:id="btnDelete" layoutX="567.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" text="Delete" />
-      <Button fx:id="btnRedo" layoutX="568.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnRedoOnAction" text="Redo" />
+      <Button fx:id="btnDelete" layoutX="567.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" styleClass="btnBlue" text="Delete" />
+      <Button fx:id="btnRedo" layoutX="568.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnRedoOnAction" styleClass="btnBlue" text="Redo" />
    </children>
 </AnchorPane>
