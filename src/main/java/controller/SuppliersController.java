@@ -4,10 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 public class SuppliersController {
 
+    public TableView tblSupplier;
+    public TableColumn colSupplierID;
+    public TableColumn colName;
+    public TableColumn colContactPerson;
+    public TableColumn colPhone;
+    public TableColumn colEmail;
+    public TableColumn colAddress;
     @FXML
     private Button btnAddSupplier;
 
@@ -32,23 +40,7 @@ public class SuppliersController {
     @FXML
     private Button btnUndo2;
 
-    @FXML
-    private TableColumn<?, ?> colBrand;
 
-    @FXML
-    private TableColumn<?, ?> colExpiryDate;
-
-    @FXML
-    private TableColumn<?, ?> colMedicineID;
-
-    @FXML
-    private TableColumn<?, ?> colQuantity;
-
-    @FXML
-    private TableColumn<?, ?> colSellingPrice;
-
-    @FXML
-    private TableColumn<?, ?> colSupplier;
 
     @FXML
     private TextField txtSearch;

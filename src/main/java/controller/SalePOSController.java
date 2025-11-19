@@ -10,14 +10,12 @@ import javafx.scene.control.TableView;
 
 public class SalePOSController {
 
+    public Button btnPurchase;
     @FXML
     private Button btnAddToCart;
 
     @FXML
     private Button btnAddToCart1;
-
-    @FXML
-    private Button btnPlaceOrder;
 
     @FXML
     private TableColumn<?, ?> colMedicineName;
@@ -63,10 +61,6 @@ public class SalePOSController {
 
     }
 
-    @FXML
-    void btnPlaceOrderOnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void txtCustomerIdOnAction(ActionEvent event) {
@@ -82,5 +76,9 @@ public class SalePOSController {
     void txtOrderIdOnAction(ActionEvent event) {
 
     }
+
+    public void btnPurchaseOnAction(ActionEvent actionEvent) {
+    }
+
 
 }

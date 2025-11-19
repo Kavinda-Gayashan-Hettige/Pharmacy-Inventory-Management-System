@@ -3,14 +3,15 @@ package model.dto;
 import lombok.*;
 
 import java.time.LocalDate;
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Getter
 @Setter
-public class ExpiringMedicineDTO {
+public class DashBoard {
     private String name;
     private LocalDate expiryDate;
-    private int quantity;
+    private int qty;
+    private boolean remaining;
 
 }

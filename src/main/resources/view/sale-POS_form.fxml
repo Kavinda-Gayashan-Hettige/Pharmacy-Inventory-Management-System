@@ -19,7 +19,7 @@
             <TableColumn fx:id="colSubtotal" prefWidth="124.00003051757812" text="Subtotal (Rs.)" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="txtOrderId" layoutX="27.0" layoutY="289.0" onAction="#txtOrderIdOnAction" prefHeight="26.0" prefWidth="100.0" promptText="Order ID" text="D001" />
+      <JFXTextField fx:id="txtSeleId" layoutX="26.0" layoutY="395.0" onAction="#txtSeleIdOnAction" prefHeight="26.0" prefWidth="100.0" promptText="Order ID" text="S001" />
       <Line endX="260.1999816894531" layoutX="92.0" layoutY="383.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Line endX="103.800048828125" endY="-124.79999542236328" fill="#0745ff" layoutX="79.0" layoutY="405.0" startX="-52.199951171875" startY="-124.79999542236328" stroke="#fc0505" />
       <Label layoutX="27.0" layoutY="253.0" text="Sale Details">
@@ -27,7 +27,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtItemCode" layoutX="26.0" layoutY="395.0" onAction="#txtItemCodeOnAction" promptText="Item Code" text="P001" />
       <Button fx:id="btnAddToCart" layoutX="17.0" layoutY="487.0" mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="135.0" styleClass="btn" stylesheets="@css/style.css" text="Add To Cart" textFill="#18ef35">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -43,7 +42,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="btnPlaceOrder" layoutX="225.0" layoutY="483.0" mnemonicParsing="false" onAction="#btnPlaceOrderOnAction" prefHeight="42.0" prefWidth="135.0" styleClass="btn2" stylesheets="@css/style.css" text="Place Order" textFill="#3ed926">
+      <Button fx:id="btnPurchase" layoutX="225.0" layoutY="483.0" mnemonicParsing="false" onAction="#btnPurchaseOnAction" prefHeight="42.0" prefWidth="135.0" styleClass="btn2" stylesheets="@css/style.css" text="Purchase" textFill="#3ed926">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -54,7 +53,7 @@
       <Label fx:id="lblCustomerName" layoutX="205.0" layoutY="352.0" text="Customer Name" />
       <JFXTextField fx:id="txtCustomerId" layoutX="28.0" layoutY="339.0" onAction="#txtCustomerIdOnAction" prefHeight="26.0" prefWidth="106.0" promptText="Customer iD" text="C001" />
       <Line endX="260.9999694824219" layoutX="92.0" layoutY="330.0" startX="-66.199951171875" stroke="#1f00ea" />
-      <Label fx:id="lblDate" layoutX="206.0" layoutY="300.0" prefHeight="18.0" prefWidth="100.0" text="Date" />
+      <Label fx:id="lblDate" layoutX="27.0" layoutY="299.0" prefHeight="18.0" prefWidth="100.0" text="Date" />
       <Button fx:id="btnAddToCart1" layoutX="477.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="157.0" styleClass="btn3" stylesheets="@css/style.css" text="Print Invoice" textFill="#556be7">
          <font>
             <Font name="System Bold" size="16.0" />

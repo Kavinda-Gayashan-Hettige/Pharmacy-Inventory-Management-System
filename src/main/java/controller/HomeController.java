@@ -40,4 +40,7 @@ public class HomeController {
     @FXML
     private TableView<?> tblLowStockItems;
 
+    public void SetTotalMedicineCount(){
+
+}
 }

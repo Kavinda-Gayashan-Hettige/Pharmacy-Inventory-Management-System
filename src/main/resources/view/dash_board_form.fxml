@@ -61,7 +61,7 @@
             <Font name="System Bold" size="19.0" />
          </font>
       </Label>
-      <Label layoutX="741.0" layoutY="28.0" prefHeight="22.0" prefWidth="136.0" text="Welcome, Mr. Kamal" />
+      <Label layoutX="741.0" layoutY="28.0" prefHeight="22.0" prefWidth="136.0" text="Welcome, Mr. Kavinda" />
       <JFXButton fx:id="btnSettingsForm" layoutX="28.0" layoutY="465.0" onAction="#btnSettingsFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Settings">
          <font>
             <Font name="System Bold Italic" size="15.0" />
