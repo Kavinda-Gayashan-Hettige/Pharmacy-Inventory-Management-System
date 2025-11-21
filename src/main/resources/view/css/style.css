@@ -8,6 +8,12 @@
     -fx-font-weight: bold;
 }
 
+.btn4{
+    -fx-background-color: #18ef35;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
 .btn2{
     -fx-background-color: #eb1329;
     -fx-text-fill: white;
@@ -22,6 +28,12 @@
 
 .btnBlue{
     -fx-background-color: #41bbfd;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.btnYellow{
+    -fx-background-color: #fbfc42;
     -fx-text-fill: black;
     -fx-font-weight: bold;
 }

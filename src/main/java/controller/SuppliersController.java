@@ -16,6 +16,8 @@ public class SuppliersController {
     public TableColumn colPhone;
     public TableColumn colEmail;
     public TableColumn colAddress;
+    public Button btnUpdate;
+    public Button btnSearchByID;
     @FXML
     private Button btnAddSupplier;
 
@@ -90,4 +92,9 @@ public class SuppliersController {
 
     }
 
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnSearchByIdOnAction(ActionEvent actionEvent) {
+    }
 }

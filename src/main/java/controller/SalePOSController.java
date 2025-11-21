@@ -9,8 +9,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 public class SalePOSController {
-
+    @FXML
     public Button btnPurchase;
+    @FXML
+    public JFXTextField txtSeleId;
     @FXML
     private Button btnAddToCart;
 
@@ -47,14 +49,7 @@ public class SalePOSController {
     @FXML
     private JFXTextField txtCustomerId;
 
-    @FXML
-    private JFXTextField txtDescription;
 
-    @FXML
-    private JFXTextField txtItemCode;
-
-    @FXML
-    private JFXTextField txtOrderId;
 
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
@@ -67,18 +62,12 @@ public class SalePOSController {
 
     }
 
-    @FXML
-    void txtItemCodeOnAction(ActionEvent event) {
 
-    }
-
-    @FXML
-    void txtOrderIdOnAction(ActionEvent event) {
-
-    }
 
     public void btnPurchaseOnAction(ActionEvent actionEvent) {
     }
 
 
+    public void txtSeleIdOnAction(ActionEvent actionEvent) {
+    }
 }
