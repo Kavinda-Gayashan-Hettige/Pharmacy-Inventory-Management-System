@@ -2,13 +2,13 @@ package model.dto;
 
 import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@Getter
 @Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Suppliers {
-    private int supplierId;
+    private String supplierId;
     private String name;
     private String contactPerson;
     private String phone;

@@ -1,4 +1,6 @@
 package repositiry.impl;
 
-public class DashboardRepositoryImpl {
+import repositiry.DashboardRepository;
+
+public class DashboardRepositoryImpl implements DashboardRepository {
 }

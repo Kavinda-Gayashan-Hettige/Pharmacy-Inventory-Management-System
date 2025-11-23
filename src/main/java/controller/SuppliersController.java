@@ -1,11 +1,12 @@
 package controller;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import model.dto.Suppliers;
+import service.SupplierService;
+import service.impl.SupplierServiceImpl;
 
 public class SuppliersController {
 
@@ -18,11 +19,16 @@ public class SuppliersController {
     public TableColumn colAddress;
     public Button btnUpdate;
     public Button btnSearchByID;
+    public JFXTextField txtSupplierID;
+    public JFXTextField txtName;
+    public JFXTextField txtContactPerson;
+    public JFXTextField txtPhone;
+    public JFXTextField txtEmail;
+    public JFXTextField txtAddress;
     @FXML
     private Button btnAddSupplier;
 
-    @FXML
-    private Button btnDelete;
+
 
     @FXML
     private Button btnDeleteSupplier;
@@ -34,27 +40,27 @@ public class SuppliersController {
     private Button btnFilterBySupplier;
 
     @FXML
-    private Button btnRedo;
-
-    @FXML
-    private Button btnUndo1;
-
-    @FXML
-    private Button btnUndo2;
-
-
-
-    @FXML
     private TextField txtSearch;
 
+    SupplierService supplierService = new SupplierServiceImpl();
     @FXML
     void btnAddSupplierOnAction(ActionEvent event) {
+        Suppliers suppliers = new Suppliers(
+                txtSupplierID.getText(),
+                txtName.getText(),
+                txtContactPerson.getText(),
+                txtPhone.getText(),
+                txtEmail.getText(),
+                txtAddress.getText()
 
-    }
+        );
+        supplierService.AddSupplier(suppliers);
 
-    @FXML
-    void btnDeleteOnAction(ActionEvent event) {
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText("New Supplier Registered");
+        alert.setContentText("Supplier successfully added!");
+        alert.showAndWait();
     }
 
     @FXML
@@ -72,20 +78,6 @@ public class SuppliersController {
 
     }
 
-    @FXML
-    void btnRedoOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnUndo1OnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnUndo2OnAction(ActionEvent event) {
-
-    }
 
     @FXML
     void txtSearchOnAction(ActionEvent event) {

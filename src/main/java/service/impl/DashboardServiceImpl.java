@@ -1,4 +1,6 @@
 package service.impl;
 
-public class DashboardServiceImpl {
+import service.DashboardService;
+
+public class DashboardServiceImpl implements DashboardService {
 }
