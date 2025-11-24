@@ -17,9 +17,7 @@ import service.impl.SupplierServiceImpl;
 import util.DBConnection;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class SuppliersController implements Initializable {
@@ -39,6 +37,7 @@ public class SuppliersController implements Initializable {
     public JFXTextField txtPhone;
     public JFXTextField txtEmail;
     public JFXTextField txtAddress;
+    public Button btnFilterByContactPerson;
     @FXML
     private Button btnAddSupplier;
 
@@ -48,8 +47,6 @@ public class SuppliersController implements Initializable {
     @FXML
     private Button btnFilterByName;
 
-    @FXML
-    private Button btnFilterBySupplier;
 
     @FXML
     private TextField txtSearch;
@@ -112,13 +109,40 @@ public class SuppliersController implements Initializable {
 
     @FXML
     void btnFilterByNameOnAction(ActionEvent event) {
-
+        String supplier = txtSearch.getText();
+        viewSupplierByName(supplier);
     }
 
-    @FXML
-    void btnFilterBySupplierOnAction(ActionEvent event) {
+    private void viewSupplierByName(String supplier) {
+       suppliersList.clear();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
 
+            String SQL = "SELECT * FROM suppliers WHERE name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, supplier);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()) {
+
+                Suppliers c = new Suppliers(
+                        rs.getString("supplier_id"),
+                        rs.getString("name"),
+                        rs.getString("contact_person"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("address")
+                );
+                suppliersList.add(c);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
 
     @FXML
@@ -130,7 +154,40 @@ public class SuppliersController implements Initializable {
     }
 
     public void btnSearchByIdOnAction(ActionEvent actionEvent) {
+        String supplier = txtSearch.getText();
+        viewSupplierBySupplierID(supplier);
     }
+
+    private void viewSupplierBySupplierID(String supplier) {
+       suppliersList.clear();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
+
+            String SQL = "SELECT * FROM suppliers WHERE supplier_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, supplier);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()) {
+
+                Suppliers c = new Suppliers(
+                        rs.getString("supplier_id"),
+                        rs.getString("name"),
+                        rs.getString("contact_person"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("address")
+                );
+                suppliersList.add(c);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     static ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
     @Override
@@ -172,5 +229,40 @@ public class SuppliersController implements Initializable {
         }
     }
 
+
+    public void btnFilterByContactPersonOnAction(ActionEvent actionEvent) {
+     String supplier = txtSearch.getText();
+        viewSupplierByContactPerson(supplier);
+    }
+
+    private void viewSupplierByContactPerson(String supplier) {
+       suppliersList.clear();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
+
+            String SQL = "SELECT * FROM suppliers WHERE contact_person = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, supplier);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()) {
+
+                Suppliers c = new Suppliers(
+                        rs.getString("supplier_id"),
+                        rs.getString("name"),
+                        rs.getString("contact_person"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("address")
+                );
+                suppliersList.add(c);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

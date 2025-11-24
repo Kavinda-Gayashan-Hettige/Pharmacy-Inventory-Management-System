@@ -20,16 +20,16 @@
             <Font name="System Bold" size="48.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSearch" layoutX="64.0" layoutY="58.0" onAction="#txtSearchOnAction" prefHeight="26.0" prefWidth="274.0" />
+      <TextField fx:id="txtSearch" layoutX="64.0" layoutY="58.0" onAction="#txtSearchOnAction" prefHeight="26.0" prefWidth="315.0" />
       <ImageView fitHeight="26.0" fitWidth="20.0" layoutX="31.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/search-interface-symbol.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnFilterByName" layoutX="69.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterByNameOnAction" styleClass="btn" text="Filter by Name" />
-      <Button fx:id="btnFilterBySupplier" layoutX="232.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterBySupplierOnAction" styleClass="btn2" text="Filter by Supplier" />
-      <Button fx:id="btnAddSupplier" layoutX="392.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnAddSupplierOnAction" styleClass="btn4" text="+  Add Supplier" />
-      <Button fx:id="btnDeleteSupplier" layoutX="392.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnDeleteSupplierOnAction" styleClass="btnYellow" text="Delete Supplier" />
+      <Button fx:id="btnFilterByName" layoutX="69.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterByNameOnAction" styleClass="btn" text="Filter by Supplier Name" />
+      <Button fx:id="btnFilterByContactPerson" layoutX="232.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnFilterByContactPersonOnAction" styleClass="btn2" text="Filter by ContactPerson" />
+      <Button fx:id="btnAddSupplier" layoutX="420.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnAddSupplierOnAction" styleClass="btn4" text="+  Add Supplier" />
+      <Button fx:id="btnDeleteSupplier" layoutX="420.0" layoutY="98.0" mnemonicParsing="false" onAction="#btnDeleteSupplierOnAction" styleClass="btnYellow" text="Delete Supplier" />
       <Button fx:id="btnUpdate" layoutX="568.0" layoutY="59.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="26.0" prefWidth="87.0" styleClass="btnWhite" text="Update" />
       <TableView fx:id="tblSupplier" layoutX="21.0" layoutY="147.0" prefHeight="246.0" prefWidth="678.0">
          <columns>
