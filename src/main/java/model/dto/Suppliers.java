@@ -1,5 +1,6 @@
 package model.dto;
 
+import com.sun.javafx.beans.IDProperty;
 import lombok.*;
 
 @Setter
@@ -8,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class Suppliers {
+
     private String supplierId;
     private String name;
     private String contactPerson;

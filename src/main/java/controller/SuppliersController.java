@@ -1,16 +1,30 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+import model.dto.Medicines;
 import model.dto.Suppliers;
 import service.SupplierService;
 import service.impl.SupplierServiceImpl;
+import util.DBConnection;
 
-public class SuppliersController {
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
-    public TableView tblSupplier;
+public class SuppliersController implements Initializable {
+
+    public TableView <Suppliers> tblSupplier;
     public TableColumn colSupplierID;
     public TableColumn colName;
     public TableColumn colContactPerson;
@@ -28,8 +42,6 @@ public class SuppliersController {
     @FXML
     private Button btnAddSupplier;
 
-
-
     @FXML
     private Button btnDeleteSupplier;
 
@@ -41,6 +53,8 @@ public class SuppliersController {
 
     @FXML
     private TextField txtSearch;
+
+
 
     SupplierService supplierService = new SupplierServiceImpl();
     @FXML
@@ -61,12 +75,21 @@ public class SuppliersController {
         alert.setHeaderText("New Supplier Registered");
         alert.setContentText("Supplier successfully added!");
         alert.showAndWait();
+
     }
 
     @FXML
     void btnDeleteSupplierOnAction(ActionEvent event) {
 
     }
+    private void showAlert(String title, String msg) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setContentText(msg);
+        a.show();
+
+    }
+
 
     @FXML
     void btnFilterByNameOnAction(ActionEvent event) {
@@ -89,4 +112,46 @@ public class SuppliersController {
 
     public void btnSearchByIdOnAction(ActionEvent actionEvent) {
     }
+
+    static ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colSupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colContactPerson.setCellValueFactory(new PropertyValueFactory<>("contactPerson"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+
+        tblSupplier.setItems(suppliersList);
+        loadTable();
+    }
+
+    public void loadTable() {
+        suppliersList.clear();
+
+        try {
+            Connection con = DBConnection.getInstance();
+            String sql = "SELECT * FROM suppliers";
+            ResultSet rs = con.prepareStatement(sql).executeQuery();
+
+            while (rs.next()) {
+
+                suppliersList.add(new Suppliers(
+                        rs.getString("supplier_id"),
+                        rs.getString("name"),
+                        rs.getString("contact_person"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("address")
+                ));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

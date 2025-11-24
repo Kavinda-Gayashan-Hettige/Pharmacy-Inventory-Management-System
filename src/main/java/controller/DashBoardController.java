@@ -41,16 +41,27 @@ public class DashBoardController {
         loadFormContent.getChildren().add(load);
     }
 
-    public void btnSupplierFormOnAction(ActionEvent actionEvent) throws IOException {
-        URL resource = this.getClass().getResource("/view/suppliers_form.fxml");
+    public void btnSupplierFormOnAction(ActionEvent actionEvent) {
+        try {
+            URL resource = getClass().getResource("/view/suppliers_form.fxml");
+            if (resource == null) {
+                System.err.println("FXML file not found!");
+                return;
+            }
 
-        assert resource != null;
+            Parent load = FXMLLoader.load(resource);
+            loadFormContent.getChildren().clear();
+            loadFormContent.getChildren().add(load);
 
-        Parent load = FXMLLoader.load(resource);
-
-        loadFormContent.getChildren().clear();
-        loadFormContent.getChildren().add(load);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error loading FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
+
 
     public void btnReportsFormOnAction(ActionEvent actionEvent) throws IOException {
         URL resource = this.getClass().getResource("/view/reports_form.fxml");
