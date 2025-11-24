@@ -80,7 +80,26 @@ public class SuppliersController implements Initializable {
 
     @FXML
     void btnDeleteSupplierOnAction(ActionEvent event) {
+        Suppliers selected = (Suppliers) tblSupplier.getSelectionModel().getSelectedItem();
 
+        if (selected == null) {
+            showAlert("Error", "Please select a row!");
+            return;
+        }
+
+        try {
+            Connection con = DBConnection.getInstance();
+            String sql = "DELETE FROM suppliers WHERE supplier_id=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, selected.getSupplierId());
+            ps.executeUpdate();
+
+            loadTable();
+            showAlert("Deleted", "Supplier Deleted");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void showAlert(String title, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
