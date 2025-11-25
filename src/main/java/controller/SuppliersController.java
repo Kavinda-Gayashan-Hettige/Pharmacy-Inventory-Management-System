@@ -144,14 +144,53 @@ public class SuppliersController implements Initializable {
     }
 
 
-
-    @FXML
-    void txtSearchOnAction(ActionEvent event) {
-
-    }
-
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        try {
+            Suppliers selectedItem = tblSupplier.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+
+
+                selectedItem.setSupplierId(txtSupplierID.getText());
+                selectedItem.setName(txtName.getText());
+                selectedItem.setContactPerson(txtContactPerson.getText());
+                selectedItem.setPhone(txtPhone.getText());
+                selectedItem.setEmail(txtEmail.getText());
+                selectedItem.setAddress(txtAddress.getText());
+
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234")) {
+                    String sql = "UPDATE suppliers SET name=?, contact_person=?, phone=?, email=?, address=? WHERE supplier_id=?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+
+                    ps.setString(6, selectedItem.getSupplierId());
+                    ps.setString(1, selectedItem.getName());
+                    ps.setString(2,selectedItem.getContactPerson());
+                    ps.setString(3, selectedItem.getPhone());
+                    ps.setString(4, selectedItem.getEmail());
+                    ps.setString(5, selectedItem.getAddress());
+
+                    int rowsAffected = ps.executeUpdate();
+                    if (rowsAffected > 0) {
+                        System.out.println("Supplier updated successfully.");
+                    } else {
+                        System.out.println("No supplier found with ID: " + selectedItem.getSupplierId());
+                    }
+
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                loadTable();
+
+            } else {
+                new Alert(Alert.AlertType.ERROR, "No supplier selected!").show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Update failed: " + e.getMessage()).show();
+        }
     }
+
 
     public void btnSearchByIdOnAction(ActionEvent actionEvent) {
         String supplier = txtSearch.getText();
@@ -265,5 +304,7 @@ public class SuppliersController implements Initializable {
         }
     }
 
+    public void txtSearchOnAction(ActionEvent actionEvent) {
+    }
 }
  

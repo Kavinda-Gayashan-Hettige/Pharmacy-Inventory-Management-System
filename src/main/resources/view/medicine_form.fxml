@@ -37,7 +37,7 @@
             <TableColumn fx:id="colBrand" prefWidth="66.4000244140625" text="Brand" />
             <TableColumn fx:id="colExpiryDate" prefWidth="92.0" text="Expiry Date" />
             <TableColumn fx:id="colQuantity" prefWidth="61.5999755859375" text="Quantity" />
-            <TableColumn fx:id="colSellingPrice" prefWidth="73.5999755859375" text="Sele Price" />
+            <TableColumn fx:id="colSellingPrice" prefWidth="73.5999755859375" text="Sale Price" />
             <TableColumn fx:id="colSupplier" prefWidth="81.5999755859375" text="Supplier" />
             <TableColumn fx:id="colBatchNo" prefWidth="63.199951171875" text="Batch No" />
             <TableColumn fx:id="colPurchasePrice" prefWidth="102.4000244140625" text="Purchase Price" />
