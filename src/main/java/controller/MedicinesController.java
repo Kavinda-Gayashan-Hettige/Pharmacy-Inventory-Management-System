@@ -190,7 +190,7 @@ public class MedicinesController implements Initializable {
         ObservableList<Medicines> searchResults = FXCollections.observableArrayList();
 
         for (Medicines m : medicineList) {
-            if (m.getMedicineId().contains(text) ||
+            if (m.getMedicineId().contains(text)||
                     m.getBrand().contains(text) ||
                     m.getSupplier().contains(text)) {
 
@@ -322,5 +322,32 @@ public class MedicinesController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
+    public String generateMedicineId() {
+        String lastId = null;
+        try {
+            Connection con = DBConnection.getInstance();
+            ResultSet rs = con.prepareStatement(
+                    "SELECT medicine_id FROM medicines ORDER BY medicine_id DESC LIMIT 1"
+            ).executeQuery();
+
+            if (rs.next()) {
+                lastId = rs.getString(1); // "M050"
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (lastId == null) {
+            return "M001";
+        }
+
+        int num = Integer.parseInt(lastId.substring(1));
+        num++;
+
+        return String.format("M%03d", num);
+    }
+
 
 }
