@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class PurchaseHistory {
     private int invoiceNo;
     private LocalDate date;
-    private String customerName;
+    private String supplierName;
     private double total;
     private String paymentType;
 }
