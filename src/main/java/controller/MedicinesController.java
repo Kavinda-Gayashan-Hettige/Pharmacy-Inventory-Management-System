@@ -323,37 +323,12 @@ public class MedicinesController implements Initializable {
         }
     }
 
-    public String generateMedicineId() {
-        String lastId = null;
-        try {
-            Connection con = DBConnection.getInstance();
-            ResultSet rs = con.prepareStatement(
-                    "SELECT medicine_id FROM medicines ORDER BY medicine_id DESC LIMIT 1"
-            ).executeQuery();
-
-            if (rs.next()) {
-                lastId = rs.getString(1); // "M050"
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (lastId == null) {
-            return "M001";
-        }
-
-        int num = Integer.parseInt(lastId.substring(1));
-        num++;
-
-        return String.format("M%03d", num);
-    }
 
 
     public boolean increaseStock(String medicineId, int receivedQty) {
         try {
             Connection connection = DBConnection.getInstance();
-            String sql = "UPDATE medicine SET quantity = quantity + ? WHERE medicineId = ?";
+            String sql = "UPDATE medicines SET quantity = quantity + ? WHERE medicineId = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setInt(1, receivedQty);

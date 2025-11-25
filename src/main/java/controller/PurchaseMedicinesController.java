@@ -164,46 +164,6 @@ public class PurchaseMedicinesController implements Initializable {
 
 
 
-//    public void btnPurchaseOnAction(ActionEvent actionEvent) {
-//        try(Connection con = DBConnection.getInstance()) {
-//
-//            String sql = "INSERT INTO purchase_medicines "
-//                    + "(purchase_id, medicine_name, unit_price, discount, date, qty) "
-//                    + "VALUES (?, ?, ?, ?, ?, ?)";
-//
-//            PreparedStatement pst = con.prepareStatement(sql);
-//
-//            for (PurchaseMedicines item : purchaseList) {
-//
-//                pst.setString(1, item.getPurchaseId());
-//                pst.setString(2, item.getMedicineName());
-//                pst.setDouble(3, item.getUnitPrice());
-//                pst.setDouble(4, item.getDiscount());
-//                pst.setDate(5, Date.valueOf(LocalDate.now()));
-//                pst.setInt(6, item.getQty());
-//
-//                pst.addBatch();
-//            }
-//
-//            pst.executeBatch();
-//
-//
-//
-//            Alert alert = new Alert(Alert.AlertType.INFORMATION,
-//                    "Purchase Completed Successfully!");
-//            alert.show();
-//
-//            purchaseList.clear();
-//            tblAddToCart.refresh();
-//            lblNetTotal.setText("0.0");
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
-
     static ObservableList<PurchaseMedicines> purchaseList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -248,35 +208,6 @@ public class PurchaseMedicinesController implements Initializable {
             e.printStackTrace();
         }
     }
-    public String generatePurchaseId() {
-        String lastId = null;
-        try {
-            Connection con = DBConnection.getInstance();
-            ResultSet rs = con.prepareStatement(
-                    "SELECT purchase_id FROM purchase_medicines ORDER BY purchase_id DESC LIMIT 1"
-            ).executeQuery();
-
-            if (rs.next()) {
-                lastId = rs.getString(1); // "P012"
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (lastId == null) {
-            return "P001";
-        }
-
-        int num = Integer.parseInt(lastId.substring(1)); // remove "P" → 12
-        num++;
-
-        return String.format("P%03d", num);
-    }
-
-
-
-
 
 
     public void txtMedicineIDOnAction(ActionEvent actionEvent) {
