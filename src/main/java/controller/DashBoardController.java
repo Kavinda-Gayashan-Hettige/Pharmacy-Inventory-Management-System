@@ -28,6 +28,8 @@ public class DashBoardController {
 
         loadFormContent.getChildren().clear();
         loadFormContent.getChildren().add(load);
+
+
     }
 
     public void btnMedicineFormOnAction(ActionEvent actionEvent) throws IOException {

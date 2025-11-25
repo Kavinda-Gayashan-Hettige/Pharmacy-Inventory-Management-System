@@ -12,9 +12,9 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41bbfd" height="40.0" layoutX="-2.0" layoutY="-1.0" stroke="#41bbfd" strokeType="INSIDE" width="720.0" />
       <TableView fx:id="tblExpiringMedicines" layoutX="59.0" layoutY="325.0" prefHeight="192.0" prefWidth="238.0" stylesheets="@css/style.css">
          <columns>
-            <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="colName1" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="colExpiryDate" prefWidth="84.0" text="Expiry Date" />
-            <TableColumn fx:id="colQty" prefWidth="78.4" text="Qty" />
+            <TableColumn fx:id="colQty1" prefWidth="78.4" text="Qty" />
          </columns>
       </TableView>
       <Label layoutX="479.0" layoutY="282.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Low Stock Items" textFill="#201f1f">
@@ -24,9 +24,9 @@
       </Label>
       <TableView fx:id="tblLowStockItems" layoutX="430.0" layoutY="321.0" prefHeight="200.0" prefWidth="246.0" stylesheets="@css/style.css">
          <columns>
-            <TableColumn fx:id="colName2" prefWidth="76.0" text="Name" />
+            <TableColumn fx:id="colName" prefWidth="76.0" text="Name" />
             <TableColumn fx:id="colRemaining" prefWidth="92.79998779296875" text="Remaining" />
-            <TableColumn fx:id="colQty2" prefWidth="76.0" text="Qty" />
+            <TableColumn fx:id="colQty" prefWidth="76.0" text="Qty" />
          </columns>
       </TableView>
       <Label layoutX="98.0" layoutY="287.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Expiring Medicines" textFill="#201f1f">

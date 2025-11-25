@@ -25,7 +25,7 @@ public class PurchaseMedicinesController implements Initializable {
 
     public Label lblMedicineName;
     public JFXTextField txtMedicineID;
-    public JFXTextField txtQty;
+    public  JFXTextField txtQty;
     @FXML
     private Button btnAddToCart;
 
@@ -51,7 +51,7 @@ public class PurchaseMedicinesController implements Initializable {
     private Label lblNetTotal;
 
     @FXML
-    private Label lblUnitPrice;
+    public  Label lblUnitPrice;
 
     @FXML
     private TableView<PurchaseMedicines> tblAddToCart;
@@ -83,13 +83,13 @@ public class PurchaseMedicinesController implements Initializable {
         calculateNetTotal();
     }
 
-    public void calculateNetTotal() {
-        double total = 0;
+    public double calculateNetTotal() {
+       double total = 0;
         for (PurchaseMedicines item : purchaseList) {
             total += item.getSubTotal();
         }
         lblNetTotal.setText(String.valueOf(total));
-
+       return total;
     }
 
 

@@ -3,15 +3,17 @@ package controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import util.DBConnection;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.time.LocalDate;
 
-public class AddMedicineController {
+
+public class AddMedicineController  {
 
     @FXML
     private JFXTextField txtMedicineID;
@@ -70,4 +72,6 @@ public class AddMedicineController {
         a.setContentText(msg);
         a.show();
     }
+
+
 }
