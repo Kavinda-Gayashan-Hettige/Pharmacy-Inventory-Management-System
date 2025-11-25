@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SalePOSController">
+<AnchorPane prefHeight="540.0" prefWidth="694.0" styleClass="background" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PurchaseMedicinesController">
    <children>
       <TableView fx:id="tblAddToCart" layoutX="23.0" layoutY="58.0" prefHeight="186.0" prefWidth="343.0" styleClass="column-header" stylesheets="@css/style.css">
          <columns>
@@ -19,10 +19,10 @@
             <TableColumn fx:id="colSubtotal" prefWidth="124.00003051757812" text="Subtotal (Rs.)" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="txtSeleId" layoutX="26.0" layoutY="395.0" onAction="#txtSeleIdOnAction" prefHeight="26.0" prefWidth="100.0" promptText="Order ID" text="S001" />
+      <JFXTextField fx:id="txtPurchaseId" layoutX="26.0" layoutY="395.0" onAction="#txtPurchaseIdOnAction" prefHeight="26.0" prefWidth="100.0" promptText="Order ID" text="P001" />
       <Line endX="260.1999816894531" layoutX="92.0" layoutY="383.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Line endX="103.800048828125" endY="-124.79999542236328" fill="#0745ff" layoutX="79.0" layoutY="405.0" startX="-52.199951171875" startY="-124.79999542236328" stroke="#fc0505" />
-      <Label layoutX="27.0" layoutY="253.0" text="Sale Details">
+      <Label layoutX="27.0" layoutY="253.0" text="Purchase Details">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -50,8 +50,8 @@
       <Line endX="259.3999938964844" layoutX="92.0" layoutY="438.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Label fx:id="lblUnitPrice" layoutX="206.0" layoutY="408.0" text="Unit Price" />
       <Label fx:id="lblDiscount" layoutX="306.0" layoutY="408.0" text="Discount" />
-      <Label fx:id="lblCustomerName" layoutX="205.0" layoutY="352.0" text="Customer Name" />
-      <JFXTextField fx:id="txtCustomerId" layoutX="28.0" layoutY="339.0" onAction="#txtCustomerIdOnAction" prefHeight="26.0" prefWidth="106.0" promptText="Customer iD" text="C001" />
+      <Label fx:id="lblSupplierName" layoutX="205.0" layoutY="352.0" text="Supplier Name" />
+      <JFXTextField fx:id="txtSupplierId" layoutX="28.0" layoutY="339.0" onAction="#txtSupplierIdOnAction" prefHeight="26.0" prefWidth="106.0" promptText="Customer iD" text="S001" />
       <Line endX="260.9999694824219" layoutX="92.0" layoutY="330.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Label fx:id="lblDate" layoutX="27.0" layoutY="299.0" prefHeight="18.0" prefWidth="100.0" text="Date" />
       <Button fx:id="btnAddToCart1" layoutX="477.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="157.0" styleClass="btn3" stylesheets="@css/style.css" text="Print Invoice" textFill="#556be7">
@@ -61,7 +61,7 @@
       </Button>
       <AnchorPane layoutX="417.0" layoutY="74.0" prefHeight="392.0" prefWidth="294.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="49.0" stroke="BLACK" strokeType="INSIDE" width="842.0" />
-      <Label alignment="CENTER" layoutX="194.0" layoutY="1.0" prefHeight="38.0" prefWidth="330.0" stylesheets="@css/style.css" text="Sales POS" textAlignment="CENTER" textFill="#ebecf2">
+      <Label alignment="CENTER" layoutX="201.0" layoutY="1.0" prefHeight="38.0" prefWidth="330.0" stylesheets="@css/style.css" text="Purchase Medicine" textAlignment="CENTER" textFill="#ebecf2">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>

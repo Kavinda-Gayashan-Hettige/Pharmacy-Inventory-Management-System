@@ -87,10 +87,10 @@ public class DashBoardController {
 
     public void btnSalePOSFormOnAction(ActionEvent actionEvent) throws IOException {
 //        Stage stage = new Stage();
-//        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/sale-POS_form.fxml"))));
+//        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/purchase-medicine-form.fxml"))));
 //        stage.show();
 
-        URL resource = this.getClass().getResource("/view/sale-POS_form.fxml");
+        URL resource = this.getClass().getResource("/view/purchase-medicine-form.fxml");
 
         assert resource != null;
 
@@ -102,7 +102,7 @@ public class DashBoardController {
     }
 
     public void btnSalesHistoryFormOnAction(ActionEvent actionEvent) throws IOException {
-        URL resource = this.getClass().getResource("/view/sales_history_form.fxml");
+        URL resource = this.getClass().getResource("/view/purchas_history_form.fxml");
 
         assert resource != null;
 

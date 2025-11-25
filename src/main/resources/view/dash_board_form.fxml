@@ -67,12 +67,12 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSalePOSForm" layoutX="28.0" layoutY="410.0" onAction="#btnSalePOSFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Sale POS">
+      <JFXButton fx:id="btnSalePOSForm" layoutX="28.0" layoutY="410.0" onAction="#btnSalePOSFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Purchase Medicines">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="btnSalesHistory" layoutX="28.0" layoutY="355.0" onAction="#btnSalesHistoryFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Sales History">
+      <JFXButton fx:id="btnSalesHistory" layoutX="28.0" layoutY="355.0" onAction="#btnSalesHistoryFormOnAction" prefHeight="44.0" prefWidth="169.0" style="-fx-background-color: #ecf0f1;" text="Purchase History">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>

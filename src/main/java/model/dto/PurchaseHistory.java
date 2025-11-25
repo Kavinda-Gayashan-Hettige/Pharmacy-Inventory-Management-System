@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @ToString
 @Getter
 @Setter
-public class SaleHistory {
+public class PurchaseHistory {
     private int invoiceNo;
     private LocalDate date;
     private String customerName;

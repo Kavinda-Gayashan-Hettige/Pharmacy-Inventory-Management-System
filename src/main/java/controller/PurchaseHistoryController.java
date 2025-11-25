@@ -7,8 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
-public class SalesHistoryController {
+public class PurchaseHistoryController {
 
+    public TableColumn colSupplierName;
     @FXML
     private Button btnDeleteRecord;
 
@@ -18,8 +19,6 @@ public class SalesHistoryController {
     @FXML
     private Button btnViewInvoice;
 
-    @FXML
-    private TableColumn<?, ?> colCustomerName;
 
     @FXML
     private TableColumn<?, ?> colDate;
