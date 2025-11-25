@@ -99,6 +99,7 @@ public class DashBoardController {
         loadFormContent.getChildren().clear();
         loadFormContent.getChildren().add(load);
 
+
     }
 
     public void btnSalesHistoryFormOnAction(ActionEvent actionEvent) throws IOException {

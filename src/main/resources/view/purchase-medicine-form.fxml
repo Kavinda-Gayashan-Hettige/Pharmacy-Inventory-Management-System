@@ -19,7 +19,7 @@
             <TableColumn fx:id="colSubtotal" prefWidth="124.00003051757812" text="Subtotal (Rs.)" />
          </columns>
       </TableView>
-      <JFXTextField fx:id="txtPurchaseId" layoutX="26.0" layoutY="395.0" onAction="#txtPurchaseIdOnAction" prefHeight="26.0" prefWidth="100.0" promptText="Purchase ID" text="P001" />
+      <JFXTextField fx:id="txtPurchaseId" layoutX="26.0" layoutY="395.0" prefHeight="26.0" prefWidth="84.0" promptText="Purchase ID" text="P001" />
       <Line endX="260.1999816894531" layoutX="92.0" layoutY="383.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Line endX="103.800048828125" endY="-124.79999542236328" fill="#0745ff" layoutX="79.0" layoutY="405.0" startX="-52.199951171875" startY="-124.79999542236328" stroke="#fc0505" />
       <Label layoutX="27.0" layoutY="253.0" text="Purchase Details">
@@ -48,10 +48,9 @@
          </font>
       </Button>
       <Line endX="259.3999938964844" layoutX="92.0" layoutY="438.0" startX="-66.199951171875" stroke="#1f00ea" />
-      <Label fx:id="lblQty" layoutX="155.0" layoutY="407.0" text="Qty" />
-      <Label fx:id="lblDiscount" layoutX="306.0" layoutY="408.0" text="Discount" />
-      <Label fx:id="lblMedicineName" layoutX="153.0" layoutY="349.0" text="Medicine Name" />
-      <JFXTextField fx:id="txtMedicineID" layoutX="28.0" layoutY="339.0" onAction="#txtMedicineIDOnAction" prefHeight="26.0" prefWidth="100.0" promptText="Medicine iD" text="M001" />
+      <Label fx:id="lblDiscount" layoutX="306.0" layoutY="404.0" text="Discount" />
+      <Label fx:id="lblMedicineName" layoutX="139.0" layoutY="349.0" text="Medicine Name" />
+      <JFXTextField fx:id="txtMedicineID" layoutX="28.0" layoutY="339.0" onAction="#txtMedicineIDOnAction" prefHeight="26.0" prefWidth="84.0" promptText="Medicine iD" text="M001" />
       <Line endX="260.9999694824219" layoutX="92.0" layoutY="330.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Label fx:id="lblDate" layoutX="27.0" layoutY="299.0" prefHeight="18.0" prefWidth="218.0" text="Date" />
       <Button fx:id="btnAddToCart1" layoutX="477.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="157.0" styleClass="btn3" stylesheets="@css/style.css" text="Print Invoice" textFill="#556be7">
@@ -66,6 +65,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Label>
-      <Label fx:id="lblUnitPrice" layoutX="215.0" layoutY="408.0" text="Unit Price" />
+      <Label fx:id="lblUnitPrice" layoutX="230.0" layoutY="404.0" text="Unit Price" />
+      <JFXTextField fx:id="txtQty" layoutX="139.0" layoutY="396.0" prefHeight="26.0" prefWidth="72.0" promptText="Qty" />
    </children>
 </AnchorPane>

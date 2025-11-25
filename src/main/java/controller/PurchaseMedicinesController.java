@@ -1,10 +1,6 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,17 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Duration;
 import model.dto.Medicines;
 import model.dto.PurchaseMedicines;
-import model.dto.Suppliers;
 import util.DBConnection;
 
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class PurchaseMedicinesController implements Initializable {
@@ -31,10 +23,9 @@ public class PurchaseMedicinesController implements Initializable {
     @FXML
     public JFXTextField txtPurchaseId;
 
-    public JFXTextField txtSupplierId;
-    public Label lblQty;
     public Label lblMedicineName;
     public JFXTextField txtMedicineID;
+    public JFXTextField txtQty;
     @FXML
     private Button btnAddToCart;
 
@@ -65,15 +56,16 @@ public class PurchaseMedicinesController implements Initializable {
     @FXML
     private TableView<PurchaseMedicines> tblAddToCart;
 
-    
+
+
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
         String purchaseId = txtPurchaseId.getText();
         String medicineName = lblMedicineName.getText(); // FLow depend on UI
-        double unitPrice = Double.parseDouble(lblQty.getText());
+        double unitPrice = Double.parseDouble(lblUnitPrice.getText());
         double discount = Double.parseDouble(lblDiscount.getText());
         LocalDate date = LocalDate.parse(lblDate.getText());
-        int qty = Integer.parseInt(lblQty.getText());
+        int qty = Integer.parseInt(txtQty.getText());
 
         PurchaseMedicines item = new PurchaseMedicines(
                 purchaseId,
@@ -90,19 +82,126 @@ public class PurchaseMedicinesController implements Initializable {
 
         calculateNetTotal();
     }
-    private void calculateNetTotal() {
+
+    public void calculateNetTotal() {
         double total = 0;
         for (PurchaseMedicines item : purchaseList) {
             total += item.getSubTotal();
         }
         lblNetTotal.setText(String.valueOf(total));
+
+    }
+
+
+    @FXML
+    void btnPurchaseOnAction(ActionEvent event) {
+
+        Connection connection = null;
+
+        try {
+            connection = DBConnection.getInstance();
+            connection.setAutoCommit(false);
+
+            String sql = "INSERT INTO purchase_medicines VALUES (?,?,?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            for (PurchaseMedicines item : purchaseList) {
+            ps.setString(1, item.getPurchaseId());
+            ps.setString(2, item.getMedicineName());
+            ps.setDouble(3, item.getUnitPrice());
+            ps.setDouble(4, item.getDiscount());
+            ps.setDate(5, Date.valueOf(LocalDate.now()));
+            ps.setInt(6, item.getQty());
+                ps.addBatch();
+
+            }
+
+            ps.executeUpdate();
+
+
+            String medId = txtMedicineID.getText();
+            int receivedQty = Integer.parseInt(txtQty.getText());
+
+            MedicinesController medicineController = new MedicinesController();
+
+            boolean updated = medicineController.increaseStock(medId, receivedQty);
+
+            if (updated) {
+                new Alert(Alert.AlertType.INFORMATION, "Stock Updated!").show();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Stock Update Failed!").show();
+            }
+
+
+            connection.commit();
+            new Alert(Alert.AlertType.INFORMATION, "Purchase Saved!").show();
+
+        } catch (SQLIntegrityConstraintViolationException e) {
+            try {
+                if (connection != null) connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            new Alert(Alert.AlertType.ERROR, "Duplicate ID!").show();
+
+        } catch (Exception e) {
+            try {
+                if (connection != null) connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (connection != null) connection.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
 
-    public void btnPurchaseOnAction(ActionEvent actionEvent) {
 
-    }
+//    public void btnPurchaseOnAction(ActionEvent actionEvent) {
+//        try(Connection con = DBConnection.getInstance()) {
+//
+//            String sql = "INSERT INTO purchase_medicines "
+//                    + "(purchase_id, medicine_name, unit_price, discount, date, qty) "
+//                    + "VALUES (?, ?, ?, ?, ?, ?)";
+//
+//            PreparedStatement pst = con.prepareStatement(sql);
+//
+//            for (PurchaseMedicines item : purchaseList) {
+//
+//                pst.setString(1, item.getPurchaseId());
+//                pst.setString(2, item.getMedicineName());
+//                pst.setDouble(3, item.getUnitPrice());
+//                pst.setDouble(4, item.getDiscount());
+//                pst.setDate(5, Date.valueOf(LocalDate.now()));
+//                pst.setInt(6, item.getQty());
+//
+//                pst.addBatch();
+//            }
+//
+//            pst.executeBatch();
+//
+//
+//
+//            Alert alert = new Alert(Alert.AlertType.INFORMATION,
+//                    "Purchase Completed Successfully!");
+//            alert.show();
+//
+//            purchaseList.clear();
+//            tblAddToCart.refresh();
+//            lblNetTotal.setText("0.0");
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
 
     static ObservableList<PurchaseMedicines> purchaseList = FXCollections.observableArrayList();
@@ -177,21 +276,6 @@ public class PurchaseMedicinesController implements Initializable {
 
 
 
-    public void txtPurchaseIdOnAction(ActionEvent actionEvent) {
-
-        String id = txtPurchaseId.getText(); // P001
-
-        for (PurchaseMedicines p : purchaseList) {
-            if (p.getPurchaseId().equals(id)) {
-                lblQty.setText(String.valueOf(p.getQty()));
-                lblUnitPrice.setText(String.valueOf(p.getUnitPrice()));
-                lblDiscount.setText(String.valueOf(p.getDiscount()));
-                return;
-            }
-        }
-
-        lblQty.setText("Not Found!");
-    }
 
 
 
@@ -202,7 +286,8 @@ public class PurchaseMedicinesController implements Initializable {
         for (Medicines m : MedicinesController.medicineList) {
             if (m.getMedicineId().equals(id)) {
                 lblMedicineName.setText(m.getName());
-
+                lblUnitPrice.setText(String.valueOf(m.getPurchasePrice()));
+                lblDiscount.setText("0.0");
                 return;
             }
         }
@@ -210,5 +295,5 @@ public class PurchaseMedicinesController implements Initializable {
         lblMedicineName.setText("Not Found!");
     }
 
-
+    
 }

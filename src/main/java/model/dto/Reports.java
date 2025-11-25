@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Reports {
+
     private String reportType; // e.g., "Daily", "Monthly", "Stock", "Expiry"
     private LocalDate fromDate;
     private LocalDate toDate;

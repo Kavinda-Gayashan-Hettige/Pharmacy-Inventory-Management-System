@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 
+import java.sql.Connection;
+
 public class PurchaseHistoryController {
 
     public TableColumn colSupplierName;
@@ -50,6 +52,7 @@ public class PurchaseHistoryController {
 
     @FXML
     void btnViewInvoiceOnAction(ActionEvent event) {
+
 
     }
 

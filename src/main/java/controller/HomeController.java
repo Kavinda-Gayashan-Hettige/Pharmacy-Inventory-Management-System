@@ -1,11 +1,15 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class HomeController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HomeController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> colExpiryDate;
@@ -40,7 +44,12 @@ public class HomeController {
     @FXML
     private TableView<?> tblLowStockItems;
 
-    public void SetTotalMedicineCount(){
 
-}
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+
 }
