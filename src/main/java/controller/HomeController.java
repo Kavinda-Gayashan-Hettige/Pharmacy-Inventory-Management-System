@@ -51,15 +51,14 @@ public class HomeController implements Initializable {
     private TableView<DashBoard> tblLowStockItems;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      lblTodaysSales.setText("59930.0");
-        lblTotalMedicine.setText("225.0");
-        lblLowStockMedicines.setText("103.0");
+      lblTodaysSales.setText("0.0");
+        lblTotalMedicine.setText("225");
+        lblLowStockMedicines.setText("103");
 
-//        double total =new PurchaseMedicinesController().calculateNetTotal();
-//        lblTodaysSales.setText(String.valueOf(total));
+        double total =new PurchaseMedicinesController().calculateNetTotal();
+        lblTodaysSales.setText(String.valueOf(total));
 
 
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));

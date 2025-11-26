@@ -84,13 +84,39 @@ public class PurchaseMedicinesController implements Initializable {
     }
 
     public double calculateNetTotal() {
-       double total = 0;
-        for (PurchaseMedicines item : purchaseList) {
-            total += item.getSubTotal();
+        double total = 0;
+
+        try {
+            if (purchaseList != null) {
+                for (PurchaseMedicines item : purchaseList) {
+                    if (item != null) {
+                        total += item.getSubTotal();
+                    }
+                }
+            }
+
+
+            if (lblNetTotal != null) {
+                lblNetTotal.setText(String.valueOf(total));
+            }
+
+        } catch (Exception e) {
+            System.out.println("calculateNetTotal() Error: " + e.getMessage());
         }
-        lblNetTotal.setText(String.valueOf(total));
-       return total;
+
+        return total;
     }
+//    public double calculateNetTotal() {
+//        double total = 0;
+//
+//        for (PurchaseMedicines item : purchaseList) {
+//            total += item.getSubTotal();
+//        }
+//
+//        lblNetTotal.setText(String.valueOf(total));
+//        return total;
+//    }
+
 
 
     @FXML
@@ -176,7 +202,6 @@ public class PurchaseMedicinesController implements Initializable {
         loadTable();
 
         lblDate.setText(LocalDate.now().toString());
-
 
     }
 
