@@ -10,6 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.Medicines;
 import model.dto.PurchaseMedicines;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import util.DBConnection;
 
 import java.net.URL;
@@ -26,6 +31,7 @@ public class PurchaseMedicinesController implements Initializable {
     public Label lblMedicineName;
     public JFXTextField txtMedicineID;
     public  JFXTextField txtQty;
+    public Button btnPrintInvoice;
     @FXML
     private Button btnAddToCart;
 
@@ -95,7 +101,6 @@ public class PurchaseMedicinesController implements Initializable {
                 }
             }
 
-
             if (lblNetTotal != null) {
                 lblNetTotal.setText(String.valueOf(total));
             }
@@ -128,7 +133,7 @@ public class PurchaseMedicinesController implements Initializable {
             connection = DBConnection.getInstance();
             connection.setAutoCommit(false);
 
-            String sql = "INSERT INTO purchase_medicines VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO purchase_medicines VALUES (?,?,?,?,?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             for (PurchaseMedicines item : purchaseList) {
@@ -138,6 +143,8 @@ public class PurchaseMedicinesController implements Initializable {
             ps.setDouble(4, item.getDiscount());
             ps.setDate(5, Date.valueOf(LocalDate.now()));
             ps.setInt(6, item.getQty());
+            ps.setDouble(7,item.getSubTotal());
+
                 ps.addBatch();
 
             }
@@ -222,6 +229,7 @@ public class PurchaseMedicinesController implements Initializable {
                         rs.getDouble("discount"),
                         rs.getDate("date").toLocalDate(),
                         rs.getInt("qty"),
+
                         0
                 ));
 
@@ -251,5 +259,29 @@ public class PurchaseMedicinesController implements Initializable {
         lblMedicineName.setText("Not Found!");
     }
 
-    
+
+    public void btnPrintInvoiceOnAction(ActionEvent actionEvent) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/report/purchase_medicine_report.jrxml");
+
+
+//            JRDesignQuery jrDesignQuery = new JRDesignQuery();
+//            jrDesignQuery.setText("SELECT * FROM purchase_medicines WHERE purchase_id = 'P001'");
+//            design.setQuery(jrDesignQuery);
+
+
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance());
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint,"purchase_medicine_report.pdf");
+
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
 }

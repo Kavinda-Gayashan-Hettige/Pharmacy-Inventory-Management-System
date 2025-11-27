@@ -1,0 +1,150 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="purchase_medicine_report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04c41cff-7c1e-41c1-ab92-aef6df824d3d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="pharmacydb_purchase_medicine"/>
+	<query language="SQL"><![CDATA[SELECT 
+    purchase_id,
+    medicine_name,
+    unit_price,
+    discount,
+    date,
+    qty,
+    (COALESCE(unit_price,0) - COALESCE(discount,0)) * COALESCE(qty,0) AS total
+FROM purchase_medicines;
+]]></query>
+	<field name="purchase_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="purchase_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="purchase_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<field name="medicine_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medicine_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="medicine_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<field name="unit_price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="unit_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="unit_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<field name="discount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="discount"/>
+		<property name="com.jaspersoft.studio.field.label" value="discount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_medicines"/>
+	</field>
+	<variable name="unit_price1" resetType="Column" calculation="Sum" class="java.lang.Double">
+		<expression><![CDATA[$F{unit_price}]]></expression>
+	</variable>
+	<variable name="qty1" resetType="Column" calculation="Sum" class="java.lang.Integer">
+		<expression><![CDATA[$F{qty}]]></expression>
+	</variable>
+	<variable name="unit_price2" resetType="Column" calculation="First" class="java.lang.Double">
+		<expression><![CDATA[$F{unit_price}]]></expression>
+	</variable>
+	<variable name="total1" resetType="Column" calculation="Sum" class="java.lang.Float">
+		<expression><![CDATA[$F{total}]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<title height="69" splitType="Stretch">
+		<element kind="staticText" uuid="9feb6a8c-c407-47fd-9361-5814a8364331" x="0" y="0" width="530" height="40" fontSize="25.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Pharmacy Inventory Management System]]></text>
+		</element>
+		<element kind="staticText" uuid="e3933f77-fbec-4b56-8ca5-1fd5d763d50d" x="150" y="38" width="240" height="20" fontSize="12.0" hTextAlign="Center">
+			<text><![CDATA[NO 223,GALLE ROAD,PANADURA]]></text>
+		</element>
+	</title>
+	<pageHeader height="85" splitType="Stretch">
+		<element kind="staticText" uuid="02f6b2e9-551e-4eb7-a644-44728dc2ad20" x="155" y="-1" width="230" height="31" fontSize="18.0" bold="false" hTextAlign="Center">
+			<text><![CDATA[Purchase Medicine Invoice]]></text>
+		</element>
+		<element kind="textField" uuid="4f1796bf-8325-4e9f-aea8-20733d5d12be" x="420" y="45" width="110" height="20" pattern="HH:mm">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="06f47140-3ec3-400f-ab7d-c7bae630469a" x="420" y="28" width="100" height="20" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="39" splitType="Stretch">
+		<element kind="staticText" uuid="3676fbc1-0981-447b-9410-b7dd93ae511f" x="20" y="0" width="82" height="30" bold="true">
+			<text><![CDATA[purchase_id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="619b7f34-6f6f-484b-b2f7-d0e45f64ecb4"/>
+		</element>
+		<element kind="staticText" uuid="7ac35350-8e35-4673-a111-464f74d86ed1" x="102" y="0" width="80" height="30" bold="true">
+			<text><![CDATA[medicine_name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8f92f29-86e5-448d-b4f5-f720fc4c1bbd"/>
+		</element>
+		<element kind="staticText" uuid="18488685-4ecb-4188-90d4-f57a785cea7f" x="200" y="0" width="80" height="30" bold="true">
+			<text><![CDATA[unit_price]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8ff07ab-aa69-436d-abb3-668ab36a45dd"/>
+		</element>
+		<element kind="staticText" uuid="dd212504-db10-4515-b6a3-ab33e28171f9" x="280" y="0" width="80" height="30" bold="true">
+			<text><![CDATA[discount]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fe31497-c0ad-47c2-997d-97bb66076c56"/>
+		</element>
+		<element kind="staticText" uuid="ad021568-1284-4a95-b0a2-246ce4287c88" x="360" y="0" width="61" height="30" bold="true">
+			<text><![CDATA[qty]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="86c6ccca-d8db-42b1-b903-1ae78717fce0"/>
+		</element>
+		<element kind="staticText" uuid="86ca55d6-9417-4181-9d34-84a54d4f3e24" x="426" y="0" width="90" height="30" bold="true">
+			<text><![CDATA[date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4c8718e8-e827-40ae-b016-51a2985d022b"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<element kind="textField" uuid="9ee72d9c-6e49-41f0-a30f-58adf5c0d682" x="20" y="5" width="82" height="30">
+				<expression><![CDATA[$F{purchase_id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="619b7f34-6f6f-484b-b2f7-d0e45f64ecb4"/>
+			</element>
+			<element kind="textField" uuid="889c1f76-93e9-4270-83a3-9d93b7b25fdb" x="103" y="5" width="81" height="30">
+				<expression><![CDATA[$F{medicine_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8f92f29-86e5-448d-b4f5-f720fc4c1bbd"/>
+			</element>
+			<element kind="textField" uuid="b56c2b32-eb16-4973-9c0e-d1da37493833" x="200" y="5" width="83" height="30">
+				<expression><![CDATA[$F{unit_price}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e8ff07ab-aa69-436d-abb3-668ab36a45dd"/>
+			</element>
+			<element kind="textField" uuid="3b029b62-ca55-4eb7-ae66-1d0301c15cd7" x="281" y="5" width="81" height="30">
+				<expression><![CDATA[$F{discount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2fe31497-c0ad-47c2-997d-97bb66076c56"/>
+			</element>
+			<element kind="textField" uuid="91425e72-f2e2-4d42-af8a-7a58e0395cd6" x="363" y="5" width="63" height="30">
+				<expression><![CDATA[$F{qty}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="86c6ccca-d8db-42b1-b903-1ae78717fce0"/>
+			</element>
+			<element kind="textField" uuid="5121f34f-e567-42fa-98e1-d891d83c5c26" x="426" y="5" width="90" height="30">
+				<expression><![CDATA[$F{date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4c8718e8-e827-40ae-b016-51a2985d022b"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="97" splitType="Stretch">
+		<element kind="staticText" uuid="70117e5b-f9f5-4d54-b528-f994304c61b5" x="386" y="30" width="65" height="30" bold="true">
+			<text><![CDATA[NET TOTAL :]]></text>
+		</element>
+		<element kind="textField" uuid="2d786350-160e-4f7f-8336-1396a1c75e20" x="465" y="30" width="86" height="30" fontSize="12.0">
+			<expression><![CDATA[$V{total1}]]></expression>
+		</element>
+	</columnFooter>
+	<pageFooter height="45" splitType="Stretch">
+		<element kind="staticText" uuid="d550c388-1176-4683-b95d-1114e6ed4fae" x="230" y="9" width="90" height="27" fontSize="14.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Thank You!]]></text>
+		</element>
+	</pageFooter>
+	<summary height="50" splitType="Stretch"/>
+</jasperReport>

@@ -53,12 +53,15 @@
       <JFXTextField fx:id="txtMedicineID" layoutX="28.0" layoutY="339.0" onAction="#txtMedicineIDOnAction" prefHeight="26.0" prefWidth="84.0" promptText="Medicine iD" text="M001" />
       <Line endX="260.9999694824219" layoutX="92.0" layoutY="330.0" startX="-66.199951171875" stroke="#1f00ea" />
       <Label fx:id="lblDate" layoutX="27.0" layoutY="299.0" prefHeight="18.0" prefWidth="218.0" text="Date" />
-      <Button fx:id="btnAddToCart1" layoutX="477.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnAddToCartOnAction" prefHeight="38.0" prefWidth="157.0" styleClass="btn3" stylesheets="@css/style.css" text="Print Invoice" textFill="#556be7">
+      <Button fx:id="btnPrintInvoice" layoutX="477.0" layoutY="486.0" mnemonicParsing="false" onAction="#btnPrintInvoiceOnAction" prefHeight="38.0" prefWidth="157.0" styleClass="btn3" stylesheets="@css/style.css" text="Print Invoice" textFill="#556be7">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="417.0" layoutY="74.0" prefHeight="392.0" prefWidth="294.0" />
+      <AnchorPane layoutX="417.0" layoutY="74.0" prefHeight="390.0" prefWidth="261.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="392.0" layoutX="1.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="264.0" />
+         </children></AnchorPane>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="49.0" stroke="BLACK" strokeType="INSIDE" width="842.0" />
       <Label alignment="CENTER" layoutX="201.0" layoutY="1.0" prefHeight="38.0" prefWidth="330.0" stylesheets="@css/style.css" text="Purchase Medicine" textAlignment="CENTER" textFill="#ebecf2">
          <font>
