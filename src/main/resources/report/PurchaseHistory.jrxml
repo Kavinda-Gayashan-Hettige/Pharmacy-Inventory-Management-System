@@ -1,0 +1,101 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="PurchaseHistory" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="02b46c56-abef-42a6-80e0-1d7ecd4a9211">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<query language="SQL"><![CDATA[SELECT * FROM purchase_history]]></query>
+	<field name="invoice_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="invoice_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="invoice_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_history"/>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_history"/>
+	</field>
+	<field name="supplier_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supplier_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="supplier_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_history"/>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total"/>
+		<property name="com.jaspersoft.studio.field.label" value="total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_history"/>
+	</field>
+	<field name="payment_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="payment_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="payment_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_history"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="53" splitType="Stretch">
+		<element kind="staticText" uuid="0127f7d8-7282-4fc6-a46d-90b2ff5d49cf" x="134" y="3" width="270" height="30" fontSize="22.0" hTextAlign="Center">
+			<text><![CDATA[PURCHASE HISTORY]]></text>
+		</element>
+		<element kind="textField" uuid="970c639c-5b8f-48ed-bd6a-4cc0731a47b5" x="440" y="5" width="100" height="24" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="dcf2c79b-088b-4d97-b93c-494816b2b5b7" x="440" y="29" width="100" height="24" pattern="HH:mm">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</title>
+	<pageHeader height="41" splitType="Stretch">
+		<element kind="staticText" uuid="b1baec29-257c-4c2d-ba1e-88eefebff1a1" x="226" y="1" width="100" height="28" fontSize="16.0" hTextAlign="Center">
+			<text><![CDATA[INVOICE]]></text>
+		</element>
+	</pageHeader>
+	<columnHeader height="42" splitType="Stretch">
+		<element kind="staticText" uuid="91ad204b-40ba-4e78-a9ea-0c2a23e2855a" x="6" y="8" width="100" height="30" hTextAlign="Center">
+			<text><![CDATA[invoice_no]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="914d8791-5e87-4723-89f0-ce3c3c8c24ef"/>
+		</element>
+		<element kind="staticText" uuid="e972f0ec-346b-40a9-b6fd-1420a93141d3" x="102" y="8" width="100" height="30" hTextAlign="Center">
+			<text><![CDATA[supplier_name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b571a1a-779f-4191-8271-8a9913c57b67"/>
+		</element>
+		<element kind="staticText" uuid="02364bb2-2947-4308-b876-c3c9fca0cfe2" x="217" y="8" width="100" height="30" hTextAlign="Center">
+			<text><![CDATA[date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="076af073-2308-4b2b-ba54-9032d35bdf1f"/>
+		</element>
+		<element kind="staticText" uuid="3b7f3e7c-09f8-45ea-bfa2-8839e2f69245" x="338" y="8" width="100" height="30" hTextAlign="Center">
+			<text><![CDATA[total]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75b026a3-a03f-416e-ac86-1626f45d641a"/>
+		</element>
+		<element kind="staticText" uuid="925e7c40-72e9-437c-b7f3-edb3e4cba82a" x="442" y="8" width="100" height="30" hTextAlign="Center">
+			<text><![CDATA[payment_type]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffa593e4-800e-49e7-b2ff-64e400b8bb9c"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<element kind="textField" uuid="43eddf3f-5b73-412d-b562-82fef3a927c1" x="6" y="5" width="100" height="24" hTextAlign="Center">
+				<expression><![CDATA[$F{invoice_no}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="914d8791-5e87-4723-89f0-ce3c3c8c24ef"/>
+			</element>
+			<element kind="textField" uuid="b7a49ce9-c487-4023-a723-73cb49e54098" x="102" y="5" width="100" height="24" hTextAlign="Center">
+				<expression><![CDATA[$F{supplier_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0b571a1a-779f-4191-8271-8a9913c57b67"/>
+			</element>
+			<element kind="textField" uuid="c2edc709-1ddd-4604-a1ec-afdb45fc146c" x="218" y="5" width="100" height="24" hTextAlign="Center">
+				<expression><![CDATA[$F{date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="076af073-2308-4b2b-ba54-9032d35bdf1f"/>
+			</element>
+			<element kind="textField" uuid="13800543-f283-4597-b5c8-e849ca6dfad0" x="342" y="6" width="100" height="22" hTextAlign="Center">
+				<expression><![CDATA[$F{total}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75b026a3-a03f-416e-ac86-1626f45d641a"/>
+			</element>
+			<element kind="textField" uuid="80120eff-aeff-444e-8fde-ba2df1f384e2" x="445" y="6" width="100" height="22" hTextAlign="Center">
+				<expression><![CDATA[$F{payment_type}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffa593e4-800e-49e7-b2ff-64e400b8bb9c"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="d147cbf6-0ae3-41de-a105-8ebccd84650c" x="229" y="19" width="100" height="30" fontSize="15.0" hTextAlign="Center">
+			<text><![CDATA[THANK YOU!]]></text>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
