@@ -30,6 +30,8 @@ public class LoginFormController {
             Stage stage = new Stage();
             stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/dash_board_form.fxml"))));
             stage.show();
+
+
         } else {
             new Alert(Alert.AlertType.WARNING, "Invalid Username or Password. Try again!!").show();
 

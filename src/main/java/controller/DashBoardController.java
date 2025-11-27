@@ -2,14 +2,19 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import model.dto.Setting;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DashBoardController {
+public class DashBoardController implements Initializable {
     public AnchorPane loadFormContent;
     public JFXButton btnSalesHistory;
     public JFXButton btnSalePOSForm;
@@ -18,6 +23,16 @@ public class DashBoardController {
     public JFXButton btnSupplierForm;
     public JFXButton btnMedicineForm;
     public JFXButton btnDashboardForm;
+    @FXML
+    public Label lblPharmacyName;
+    @FXML
+    public Label lblAdminName;
+    @FXML
+    public Label lblAddress;
+    @FXML
+    public Label lblPhone;
+    @FXML
+    public Label lblEmail;
 
     public void btnDashboardFormOnAction(ActionEvent actionEvent) throws IOException {
         URL resource = this.getClass().getResource("/view/home_form.fxml");
@@ -113,5 +128,35 @@ public class DashBoardController {
 
         loadFormContent.getChildren().clear();
         loadFormContent.getChildren().add(load);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblPharmacyName.setText("");
+        String name = new SettingsController().setPharmacyName();
+        lblPharmacyName.setText(name);
+
+    }
+
+
+    public void setPharmacyName(String name) {
+        lblPharmacyName.setText(name);
+
+    }
+
+    public void setPharmacyAddress(String address) {
+        lblAddress.setText(address);
+    }
+
+    public void setPharmacyPhone(String phone) {
+        lblPhone.setText(phone);
+    }
+
+    public void setPharmacyEmail(String email) {
+        lblEmail.setText(email);
+    }
+
+    public void setPharmacyAdmin(String admin) {
+        lblAdminName.setText(admin);
     }
 }
