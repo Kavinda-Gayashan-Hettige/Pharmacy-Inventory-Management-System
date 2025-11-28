@@ -341,6 +341,9 @@ public class MedicinesController implements Initializable {
         }
         return false;
     }
+    public ObservableList<Medicines> getTotalMedicineList() {
+        return tblMedicine.getItems();  // returns the list in the table
+    }
 
 
 }

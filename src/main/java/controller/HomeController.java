@@ -3,17 +3,22 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.DashBoard;
+
+import model.dto.Medicines;
 import util.DBConnection;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -54,8 +59,8 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
       lblTodaysSales.setText("0.0");
-        lblTotalMedicine.setText("225");
-        lblLowStockMedicines.setText("103");
+        lblTotalMedicine.setText("");
+        lblLowStockMedicines.setText("");
 
         double total =new PurchaseMedicinesController().calculateNetTotal();
         lblTodaysSales.setText(String.valueOf(total));
@@ -71,10 +76,28 @@ public class HomeController implements Initializable {
         tblExpiringMedicines.setItems(purchaseList);
         tblLowStockItems.setItems(purchaseList);
         loadTable();
+
+        // Load Medicine UI
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/medicine_form.fxml"));
+
+        try {
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        MedicinesController medController = loader.getController();
+
+        // get list
+        ObservableList<Medicines> list = medController.getTotalMedicineList();
+
+        // calculate & set label
+        setTotalMedicineCount(list);
     }
 
 
     static ObservableList<DashBoard> purchaseList = FXCollections.observableArrayList();
+
 
     public void loadTable() {
         purchaseList.clear();
@@ -96,10 +119,31 @@ public class HomeController implements Initializable {
 
             }
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        setLowStockMedicines();
+
+    }
+
+    public void setLowStockMedicines(){
+        int totalQty = 0;
+
+        for (DashBoard med : tblLowStockItems.getItems()) {
+            totalQty += med.getQty();
+        }
+        lblLowStockMedicines.setText(String.valueOf(totalQty));
+    }
+    public void setTotalMedicineCount(ObservableList<Medicines> list) {
+
+        int totalQty = 0;
+
+        for (Medicines med : list) {
+            totalQty += med.getQuantity();
+        }
+
+        lblTotalMedicine.setText(String.valueOf(totalQty));
     }
 
 }
