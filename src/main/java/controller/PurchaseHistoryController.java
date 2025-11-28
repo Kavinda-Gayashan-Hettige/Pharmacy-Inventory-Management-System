@@ -72,7 +72,10 @@ public class PurchaseHistoryController implements Initializable {
         Connection connection = null;
         try {
             connection = DBConnection.getInstance();
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE purchase_history WHERE invoice_no=?");
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM purchase_history WHERE invoice_no=?"
+            );
+
             preparedStatement.setString(1, String.valueOf(selected.getInvoiceNo()));
             preparedStatement.executeUpdate();
 

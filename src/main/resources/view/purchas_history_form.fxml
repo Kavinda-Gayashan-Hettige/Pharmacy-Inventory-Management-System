@@ -45,7 +45,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <TextField fx:id="txtDate" layoutX="127.0" layoutY="84.0" onAction="#txtDateOnAction" prefHeight="26.0" prefWidth="278.0" promptText="2025-04-02" />
+      <TextField fx:id="txtDate" layoutX="127.0" layoutY="84.0" onAction="#txtDateOnAction" opacity="0.6" prefHeight="26.0" prefWidth="278.0" promptText="2025-04-02" />
       <Button fx:id="btnSearch" layoutX="490.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnSearchOnAction" prefHeight="30.0" prefWidth="122.0" styleClass="btnWhite" stylesheets="@css/style.css" text="Search">
          <font>
             <Font size="14.0" />

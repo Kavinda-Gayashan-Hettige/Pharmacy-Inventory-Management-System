@@ -17,7 +17,7 @@
             <TableColumn fx:id="colQty1" prefWidth="78.4" text="Qty" />
          </columns>
       </TableView>
-      <Label layoutX="479.0" layoutY="282.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Low Stock Items" textFill="#201f1f">
+      <Label layoutX="479.0" layoutY="282.0" prefHeight="39.0" prefWidth="160.0" style="-fx-padding:10;" text="Low Stock Medicines" textFill="#201f1f">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
