@@ -1,7 +1,5 @@
 package controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,17 +9,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.dto.Medicines;
-import util.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable{
@@ -124,20 +118,15 @@ txtAdmin.setText(" Kavinda");
     }
 
     public void txtLowStockAleartOnAction(ActionEvent actionEvent) {
-        try {
+        int threshold = Integer.parseInt(txtLowStockAleart.getText());
 
-            int lowStock = Integer.parseInt(txtLowStockAleart.getText());
-            HomeController.setLowStockThreshold(lowStock);
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/home_form.fxml"));
-            Parent root = loader.load();
-
-            showAlert("Updated", "Low Stock Count Range is Updated");
-        } catch (IOException e) {
-            e.printStackTrace();
+        HomeController home = HomeControllerSingleton.getInstance();
+        if (home != null) {
+            HomeController.setLowStockThreshold(threshold);
+            home.loadLowStockMedicine(threshold);
         }
 
-
+        showAlert("Updated", "Low stock alert updated.");
     }
     private void showAlert(String title, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -145,5 +134,26 @@ txtAdmin.setText(" Kavinda");
         a.setContentText(msg);
         a.show();
     }
+
+    public int getExpiryAlertDays() {
+        try {
+            return Integer.parseInt(txtExpiryAleart.getText());
+        } catch (NumberFormatException e) {
+            return 30; // default
+        }
+    }
+
+
+    public void txtExpiryAlertOnAction(ActionEvent actionEvent) throws IOException {
+        int days = Integer.parseInt(txtExpiryAleart.getText());
+
+        HomeController home = HomeControllerSingleton.getInstance();
+        if (home != null) {
+            home.setExpiryAlertDays(days);
+        }
+
+        showAlert("Updated", "Expiry alert updated.");
+    }
+
 
 }

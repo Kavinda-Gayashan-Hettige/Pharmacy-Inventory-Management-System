@@ -5,15 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import model.dto.DashBoard;
 
 import model.dto.Medicines;
 import util.DBConnection;
@@ -23,7 +18,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -36,11 +31,8 @@ public class HomeController implements Initializable {
     @FXML
     private TableColumn<?, ?> colName;
 
-
     @FXML
     private TableColumn<?, ?> colQty;
-
-
 
     @FXML
     private TableColumn<?, ?> colRemaining;
@@ -55,25 +47,36 @@ public class HomeController implements Initializable {
     private Label lblTotalMedicine;
 
     @FXML
-    private TableView<DashBoard> tblExpiringMedicines;
+    private TableView<Medicines> tblExpiringMedicines;
 
     @FXML
     private TableView<Medicines> tblLowStockItems;
 
 
     private static int LOW_STOCK_THRESHOLD = 100;
+    private int expiryAlertDays = 30;
+
+    static ObservableList<Medicines> lowStockList  = FXCollections.observableArrayList();
+    private ObservableList<Medicines> expiringList = FXCollections.observableArrayList();
+
 
     public static void setLowStockThreshold(int threshold) {
+
         LOW_STOCK_THRESHOLD = threshold;
     }
 
     public static int getLowStockThreshold() {
+
         return LOW_STOCK_THRESHOLD;
     }
 
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        HomeControllerSingleton.setHomeController(this);
+
       lblTodaysSales.setText("0.0");
         lblTotalMedicine.setText("");
         lblLowStockMedicines.setText("");
@@ -83,16 +86,18 @@ public class HomeController implements Initializable {
 
 
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colExpiryDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        colQty1.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colRemaining.setCellValueFactory(new PropertyValueFactory<>("remaining"));
 
-        tblExpiringMedicines.setItems(purchaseList);
-        tblLowStockItems.setItems(medicineList);
-        loadTable();
+        colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colExpiryDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        colQty1.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
+
+        loadExpiringMedicines();
+        tblLowStockItems.setItems(lowStockList);
+        tblExpiringMedicines.setItems(expiringList);
+        updateLowStockCount();
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/medicine_form.fxml"));
@@ -109,33 +114,47 @@ public class HomeController implements Initializable {
 
     }
 
-    static ObservableList<DashBoard> purchaseList = FXCollections.observableArrayList();
-    static ObservableList<Medicines> medicineList = FXCollections.observableArrayList();
+    private void updateLowStockCount() {
+        int totalQty = lowStockList.stream().mapToInt(Medicines::getQuantity).sum();
+        lblLowStockMedicines.setText(String.valueOf(totalQty));
+    }
 
-    public void loadTable() {
-        purchaseList.clear();
 
+    public void setExpiryAlertDays(int days) {
+        this.expiryAlertDays = days;
+        loadExpiringMedicines();
+    }
+
+
+
+
+    private void loadExpiringMedicines() {
+        expiringList.clear();
         try {
             Connection con = DBConnection.getInstance();
-            String sql = "SELECT * FROM dashboard";
-            ResultSet rs = con.prepareStatement(sql).executeQuery();
+            String sql = "SELECT * FROM medicines WHERE DATEDIFF(expiryDate, CURDATE()) <= ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, expiryAlertDays);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-
-                purchaseList.add(new DashBoard(
+                expiringList.add(new Medicines(
+                        rs.getString("medicineId"),
                         rs.getString("name"),
-                        rs.getDate("expiry_date").toLocalDate(),
-                        rs.getInt("qty"),
-                        rs.getBoolean("remaining")
-
+                        rs.getString("brand"),
+                        rs.getString("batchNo"),
+                        rs.getDate("expiryDate").toLocalDate(),
+                        rs.getInt("quantity"),
+                        rs.getDouble("purchasePrice"),
+                        rs.getDouble("sellingPrice"),
+                        rs.getString("supplier"),
+                        rs.getInt("quantity") > 0 // remaining
                 ));
-
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         setLowStockMedicines();
 
         loadLowStockMedicine(HomeController.getLowStockThreshold());
@@ -144,7 +163,7 @@ public class HomeController implements Initializable {
     }
 
     public void loadLowStockMedicine(int threshold){
-        medicineList.clear();
+        lowStockList.clear();
 
         try {
             Connection conn = DBConnection.getInstance();
@@ -170,7 +189,7 @@ public class HomeController implements Initializable {
                 }
 
 
-                medicineList.add(new Medicines(
+                lowStockList.add(new Medicines(
                         rs.getString("medicineId"),
                         rs.getString("name"),
                         rs.getString("brand"),
@@ -187,7 +206,7 @@ public class HomeController implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+        updateLowStockCount();
     }
 
     public void setLowStockMedicines(){
