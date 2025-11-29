@@ -1,0 +1,109 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="Stock_Summary_Report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04d8e902-04a2-42ed-9043-8ec78c3d29e1">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<query language="SQL"><![CDATA[SELECT medicineId, name, brand, batchNo, quantity, sellingPrice, (quantity * sellingPrice) AS totalValue 
+FROM medicines 
+ORDER BY name ASC]]></query>
+	<field name="medicineId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medicineId"/>
+		<property name="com.jaspersoft.studio.field.label" value="medicineId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicines"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicines"/>
+	</field>
+	<field name="brand" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="brand"/>
+		<property name="com.jaspersoft.studio.field.label" value="brand"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicines"/>
+	</field>
+	<field name="batchNo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="batchNo"/>
+		<property name="com.jaspersoft.studio.field.label" value="batchNo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicines"/>
+	</field>
+	<field name="quantity" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.label" value="quantity"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicines"/>
+	</field>
+	<field name="sellingPrice" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="sellingPrice"/>
+		<property name="com.jaspersoft.studio.field.label" value="sellingPrice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="medicines"/>
+	</field>
+	<field name="totalValue" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="totalValue"/>
+		<property name="com.jaspersoft.studio.field.label" value="totalValue"/>
+	</field>
+	<background height="30" splitType="Stretch"/>
+	<title height="69" splitType="Stretch">
+		<element kind="staticText" uuid="5033ac3f-98ab-45a9-97b3-b5d7e0e75b96" x="153" y="37" width="250" height="30" fontSize="22.0" bold="true">
+			<text><![CDATA[Stock Summary Report]]></text>
+		</element>
+	</title>
+	<pageHeader height="58" splitType="Stretch">
+		<element kind="textField" uuid="acbaddf9-8664-40c6-825f-70e5331b3a72" x="458" y="1" width="100" height="16" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="6c9f3b69-dc7c-43ab-82fe-4c3a6b302be3" x="457" y="18" width="100" height="22" pattern="HH:mm">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="staticText" uuid="dc348399-2ca3-47d1-9d5a-f0c91d3f37fd" x="97" y="4" width="352" height="16" hTextAlign="Center">
+			<text><![CDATA[Address: No.356, Galle Road, Panadura.
+]]></text>
+		</element>
+	</pageHeader>
+	<columnHeader height="33" splitType="Stretch">
+		<element kind="staticText" uuid="5e10079c-18db-4ca6-b3b2-a57fda061cb6" x="189" y="0" width="79" height="30" bold="true">
+			<text><![CDATA[Name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8f8acf4-2113-4e1c-a3c7-af82a319f10d"/>
+		</element>
+		<element kind="staticText" uuid="7f3fb4fa-7f77-421d-9a1f-5d5a3d5fc9f7" x="77" y="0" width="69" height="30" bold="true">
+			<text><![CDATA[Batch No]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="851f6ce3-e045-494b-a3a4-f35bd5a13d0f"/>
+		</element>
+		<element kind="staticText" uuid="440c73b6-6706-4a10-9005-9e02ed76dcc8" x="321" y="0" width="49" height="30" bold="true">
+			<text><![CDATA[Quantity]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd71148b-581b-422b-8405-5607ca3f739f"/>
+		</element>
+		<element kind="staticText" uuid="f0962d9a-3ec4-4125-a1d2-e0b3f8f7c48e" x="426" y="0" width="69" height="30" bold="true">
+			<text><![CDATA[Total Value]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="92a63a12-7885-486e-be39-e68835b2b514"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="43" splitType="Stretch">
+			<element kind="textField" uuid="7a252c4d-2152-473e-87b9-06a69bf678fa" x="189" y="9" width="79" height="30">
+				<expression><![CDATA[$F{name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a8f8acf4-2113-4e1c-a3c7-af82a319f10d"/>
+			</element>
+			<element kind="textField" uuid="952e8196-92c8-4f4e-9cf1-78f84ca44f2c" x="77" y="9" width="69" height="30">
+				<expression><![CDATA[$F{batchNo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="851f6ce3-e045-494b-a3a4-f35bd5a13d0f"/>
+			</element>
+			<element kind="textField" uuid="f0a8da23-83a9-486a-9f3b-7bcc2d32fae5" x="321" y="9" width="49" height="30" bold="true">
+				<expression><![CDATA[$F{quantity}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd71148b-581b-422b-8405-5607ca3f739f"/>
+			</element>
+			<element kind="textField" uuid="7bd45dfa-3a3d-4847-89d8-6075e59ce89f" x="426" y="10" width="69" height="30">
+				<expression><![CDATA[$F{totalValue}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="92a63a12-7885-486e-be39-e68835b2b514"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="55" splitType="Stretch"/>
+	<pageFooter height="59" splitType="Stretch">
+		<element kind="staticText" uuid="71100182-3953-4133-ba4e-b66e21eaeec9" x="113" y="12" width="320" height="30" hTextAlign="Center">
+			<text><![CDATA[Contact: 07788594561 / kghpharmacy@gmail.com]]></text>
+		</element>
+	</pageFooter>
+	<summary height="39" splitType="Stretch">
+		<element kind="staticText" uuid="38ac3ca7-7d39-4da2-b431-ebeffd806ded" x="220" y="9" width="100" height="30" fontSize="16.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Thank You !]]></text>
+		</element>
+	</summary>
+</jasperReport>

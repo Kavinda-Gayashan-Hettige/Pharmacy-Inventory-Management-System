@@ -82,6 +82,13 @@
             <version>2.25.2</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-barbecue</artifactId>
+            <version>7.0.3</version>
+        </dependency>
+
     </dependencies>
 
 </project>

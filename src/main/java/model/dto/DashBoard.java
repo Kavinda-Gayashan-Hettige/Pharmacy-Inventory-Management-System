@@ -12,6 +12,6 @@ public class DashBoard {
     private String name;
     private LocalDate expiryDate;
     private int qty;
-    private boolean remaining;
+    private boolean remaining;  // true or false
 
 }
