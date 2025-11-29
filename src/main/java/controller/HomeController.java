@@ -5,10 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.dto.DashBoard;
 
 import model.dto.Medicines;
@@ -57,6 +61,17 @@ public class HomeController implements Initializable {
     private TableView<Medicines> tblLowStockItems;
 
 
+    private static int LOW_STOCK_THRESHOLD = 100;
+
+    public static void setLowStockThreshold(int threshold) {
+        LOW_STOCK_THRESHOLD = threshold;
+    }
+
+    public static int getLowStockThreshold() {
+        return LOW_STOCK_THRESHOLD;
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
       lblTodaysSales.setText("0.0");
@@ -78,32 +93,27 @@ public class HomeController implements Initializable {
         tblLowStockItems.setItems(medicineList);
         loadTable();
 
-        // Load Medicine UI
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/medicine_form.fxml"));
 
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/medicine_form.fxml"));
             loader.load();
+            MedicinesController medController = loader.getController();
+
+            ObservableList<Medicines> list = medController.getTotalMedicineList();
+
+            setTotalMedicineCount(list);
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        MedicinesController medController = loader.getController();
-
-        // get list
-        ObservableList<Medicines> list = medController.getTotalMedicineList();
-
-        // calculate & set label
-        setTotalMedicineCount(list);
     }
 
-
     static ObservableList<DashBoard> purchaseList = FXCollections.observableArrayList();
-static ObservableList<Medicines> medicineList = FXCollections.observableArrayList();
+    static ObservableList<Medicines> medicineList = FXCollections.observableArrayList();
 
     public void loadTable() {
         purchaseList.clear();
-
-
 
         try {
             Connection con = DBConnection.getInstance();
@@ -128,8 +138,8 @@ static ObservableList<Medicines> medicineList = FXCollections.observableArrayLis
 
         setLowStockMedicines();
 
-        int threshold=0;
-        loadLowStockMedicine(threshold);
+        loadLowStockMedicine(HomeController.getLowStockThreshold());
+
 
     }
 
@@ -142,7 +152,7 @@ static ObservableList<Medicines> medicineList = FXCollections.observableArrayLis
             conn= DBConnection.getInstance();
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setInt(1, setLowStockQty(300));
+            ps.setInt(1, threshold);
 
             ResultSet rs = ps.executeQuery();
 
@@ -178,9 +188,7 @@ static ObservableList<Medicines> medicineList = FXCollections.observableArrayLis
             throw new RuntimeException(e);
         }
 
-
     }
-
 
     public void setLowStockMedicines(){
         int totalQty = 0;
@@ -202,8 +210,4 @@ static ObservableList<Medicines> medicineList = FXCollections.observableArrayLis
     }
 
 
-    public int setLowStockQty(int lowStock) {
-        int threshold = lowStock;
-        return threshold;
-    }
 }

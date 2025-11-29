@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -65,8 +66,6 @@ txtAdmin.setText(" Kavinda");
 //    }
 
 
-
-
     @FXML
     void btnSaveSettingOnAction(ActionEvent event) {
 
@@ -104,26 +103,6 @@ txtAdmin.setText(" Kavinda");
         }
 
 
-        try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/home_form.fxml"));
-            Parent root = loader.load();
-
-            HomeController controller = loader.getController();
-
-
-            int lowStock = Integer.parseInt(txtLowStockAleart.getText());
-            controller.setLowStockQty(Integer.parseInt(String.valueOf(lowStock)));
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 
@@ -143,4 +122,28 @@ txtAdmin.setText(" Kavinda");
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    public void txtLowStockAleartOnAction(ActionEvent actionEvent) {
+        try {
+
+            int lowStock = Integer.parseInt(txtLowStockAleart.getText());
+            HomeController.setLowStockThreshold(lowStock);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/home_form.fxml"));
+            Parent root = loader.load();
+
+            showAlert("Updated", "Low Stock Count Range is Updated");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    private void showAlert(String title, String msg) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setContentText(msg);
+        a.show();
+    }
+
 }
