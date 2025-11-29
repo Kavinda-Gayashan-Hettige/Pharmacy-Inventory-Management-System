@@ -17,6 +17,7 @@ import util.DBConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -53,7 +54,7 @@ public class HomeController implements Initializable {
     private TableView<DashBoard> tblExpiringMedicines;
 
     @FXML
-    private TableView<DashBoard> tblLowStockItems;
+    private TableView<Medicines> tblLowStockItems;
 
 
     @Override
@@ -69,12 +70,12 @@ public class HomeController implements Initializable {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colName1.setCellValueFactory(new PropertyValueFactory<>("name"));
         colExpiryDate.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+        colQty.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colQty1.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colRemaining.setCellValueFactory(new PropertyValueFactory<>("remaining"));
 
         tblExpiringMedicines.setItems(purchaseList);
-        tblLowStockItems.setItems(purchaseList);
+        tblLowStockItems.setItems(medicineList);
         loadTable();
 
         // Load Medicine UI
@@ -97,10 +98,12 @@ public class HomeController implements Initializable {
 
 
     static ObservableList<DashBoard> purchaseList = FXCollections.observableArrayList();
-
+static ObservableList<Medicines> medicineList = FXCollections.observableArrayList();
 
     public void loadTable() {
         purchaseList.clear();
+
+
 
         try {
             Connection con = DBConnection.getInstance();
@@ -125,13 +128,65 @@ public class HomeController implements Initializable {
 
         setLowStockMedicines();
 
+        int threshold=0;
+        loadLowStockMedicine(threshold);
+
     }
+
+    public void loadLowStockMedicine(int threshold){
+        medicineList.clear();
+
+        try {
+            Connection conn = DBConnection.getInstance();
+            String sql = "SELECT * FROM medicines WHERE quantity < ?";
+            conn= DBConnection.getInstance();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, setLowStockQty(300));
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                int quantity = rs.getInt("quantity");
+
+
+                boolean remaining;
+
+                if (quantity == 0) {
+                    remaining = false;
+                } else {
+                    remaining = true;
+                }
+
+
+                medicineList.add(new Medicines(
+                        rs.getString("medicineId"),
+                        rs.getString("name"),
+                        rs.getString("brand"),
+                        rs.getString("batchNo"),
+                        rs.getDate("expiryDate").toLocalDate(),
+                        rs.getInt("quantity"),
+                        rs.getDouble("purchasePrice"),
+                        rs.getDouble("sellingPrice"),
+                        rs.getString("supplier"),
+                        remaining
+
+                ));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 
     public void setLowStockMedicines(){
         int totalQty = 0;
 
-        for (DashBoard med : tblLowStockItems.getItems()) {
-            totalQty += med.getQty();
+        for (Medicines med : tblLowStockItems.getItems()) {
+            totalQty += med.getQuantity();
         }
         lblLowStockMedicines.setText(String.valueOf(totalQty));
     }
@@ -146,4 +201,9 @@ public class HomeController implements Initializable {
         lblTotalMedicine.setText(String.valueOf(totalQty));
     }
 
+
+    public int setLowStockQty(int lowStock) {
+        int threshold = lowStock;
+        return threshold;
+    }
 }

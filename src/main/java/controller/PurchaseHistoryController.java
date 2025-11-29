@@ -21,9 +21,7 @@ import util.DBConnection;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -173,7 +171,41 @@ public class PurchaseHistoryController implements Initializable {
 
     public void txtDateOnAction(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void btnSearchOnAction(ActionEvent actionEvent) {
+        String expiryDate = txtDate.getText();
+        viewHistoryByExpiryDate(expiryDate);
     }
+
+    private void viewHistoryByExpiryDate(String expiryDate) {
+        purchaseList.clear();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
+
+            String SQL = "SELECT * FROM purchase_history WHERE date = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            preparedStatement.setString(1, expiryDate);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+
+            while (rs.next()) {
+
+                PurchaseHistory c = new PurchaseHistory(
+                        rs.getInt("invoice_no"),
+                        rs.getDate("date").toLocalDate(),
+                        rs.getString("supplier_name"),
+                        rs.getDouble("total"),
+                        rs.getString("payment_type")
+                );
+                purchaseList.add(c);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
 }

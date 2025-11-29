@@ -119,7 +119,7 @@ public class MedicinesController implements Initializable {
 
 
             while (rs.next()) {
-
+                boolean remaining=false;
                 Medicines c = new Medicines(
                         rs.getString("medicineId"),
                         rs.getString("name"),
@@ -129,7 +129,8 @@ public class MedicinesController implements Initializable {
                         rs.getInt("quantity"),
                         rs.getDouble("purchasePrice"),
                         rs.getDouble("sellingPrice"),
-                        rs.getString("supplier")
+                        rs.getString("supplier"),
+                        remaining
                 );
                 medicineList.add(c);
             }
@@ -161,6 +162,7 @@ public class MedicinesController implements Initializable {
 
 
             while (rs.next()) {
+                boolean remaining= false;
 
                 Medicines c = new Medicines(
                         rs.getString("medicineId"),
@@ -171,7 +173,8 @@ public class MedicinesController implements Initializable {
                         rs.getInt("quantity"),
                         rs.getDouble("purchasePrice"),
                         rs.getDouble("sellingPrice"),
-                        rs.getString("supplier")
+                        rs.getString("supplier"),
+                        remaining
                 );
                 medicineList.add(c);
             }
@@ -231,6 +234,8 @@ public class MedicinesController implements Initializable {
             ResultSet rs = con.prepareStatement(sql).executeQuery();
 
             while (rs.next()) {
+                boolean remaining = false;
+
                 medicineList.add(new Medicines(
                         rs.getString("medicineId"),
                         rs.getString("name"),
@@ -240,7 +245,8 @@ public class MedicinesController implements Initializable {
                         rs.getInt("quantity"),
                         rs.getDouble("purchasePrice"),
                         rs.getDouble("sellingPrice"),
-                        rs.getString("supplier")
+                        rs.getString("supplier"),
+                        remaining
 
 
                 ));
@@ -303,6 +309,7 @@ public class MedicinesController implements Initializable {
 
 
             while (rs.next()) {
+                boolean remaining = false;
 
                 Medicines c = new Medicines(
                         rs.getString("medicineId"),
@@ -313,7 +320,8 @@ public class MedicinesController implements Initializable {
                         rs.getInt("quantity"),
                         rs.getDouble("purchasePrice"),
                         rs.getDouble("sellingPrice"),
-                        rs.getString("supplier")
+                        rs.getString("supplier"),
+                        remaining
                 );
                 medicineList.add(c);
             }
@@ -344,6 +352,7 @@ public class MedicinesController implements Initializable {
     public ObservableList<Medicines> getTotalMedicineList() {
         return tblMedicine.getItems();  // returns the list in the table
     }
+
 
 
 }

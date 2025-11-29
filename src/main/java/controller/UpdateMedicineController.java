@@ -48,6 +48,7 @@ public class UpdateMedicineController {
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        boolean remaining=false;
         Medicines medicines = new Medicines(
                 txtMedicineID.getText(),
                 txtMedicineName.getText(),
@@ -57,7 +58,8 @@ public class UpdateMedicineController {
                 Integer.parseInt(txtQuantity.getText()),
                 Double.parseDouble(txtPurchasePrice.getText()),
                 Double.parseDouble(txtSellingPrice.getText()),
-                txtSupplier.getText()
+                txtSupplier.getText(),
+                remaining
         );
         setSelectedItem(medicines);
         updateMedicine(medicines);
