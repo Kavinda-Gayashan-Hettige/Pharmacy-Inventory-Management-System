@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import model.dto.Medicines;
 import model.dto.PurchaseMedicines;
 import net.sf.jasperreports.engine.*;
@@ -32,6 +33,8 @@ public class PurchaseMedicinesController implements Initializable {
     public JFXTextField txtMedicineID;
     public  JFXTextField txtQty;
     public Button btnPrintInvoice;
+    public JFXTextField txtSupplierId;
+    public Label lblSupplierName;
     @FXML
     private Button btnAddToCart;
 
@@ -67,7 +70,7 @@ public class PurchaseMedicinesController implements Initializable {
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
         String purchaseId = txtPurchaseId.getText();
-        String medicineName = lblMedicineName.getText(); // FLow depend on UI
+        String medicineName = lblMedicineName.getText(); //
         double unitPrice = Double.parseDouble(lblUnitPrice.getText());
         double discount = Double.parseDouble(lblDiscount.getText());
         LocalDate date = LocalDate.parse(lblDate.getText());
@@ -150,6 +153,26 @@ public class PurchaseMedicinesController implements Initializable {
             }
 
             ps.executeUpdate();
+
+
+
+            int invoiceNo = generateInvoiceNo();
+            String supplierName = lblSupplierName.getText();
+            LocalDate today = LocalDate.now();
+            double total = Double.parseDouble(lblNetTotal.getText());
+            String paymentType = "Cash";
+
+            String sql2 = "INSERT INTO purchase_history (invoice_no, date, supplier_name, total, payment_type) VALUES (?,?,?,?,?)";
+            PreparedStatement ps2 = connection.prepareStatement(sql2);
+
+            ps2.setInt(1, invoiceNo);
+            ps2.setDate(2, Date.valueOf(today));
+            ps2.setString(3, supplierName);
+            ps2.setDouble(4, total);
+            ps2.setString(5, paymentType);
+
+            ps2.executeUpdate();
+
 
 
             String medId = txtMedicineID.getText();
@@ -245,7 +268,7 @@ public class PurchaseMedicinesController implements Initializable {
 
     public void txtMedicineIDOnAction(ActionEvent actionEvent) {
 
-        String id = txtMedicineID.getText(); // M001
+        String id = txtMedicineID.getText();
 
         for (Medicines m : MedicinesController.medicineList) {
             if (m.getMedicineId().equals(id)) {
@@ -282,6 +305,36 @@ public class PurchaseMedicinesController implements Initializable {
         }
     }
 
+    @FXML
+    public void txtSupplierIdOnAction(ActionEvent actionEvent) {
+        String id = txtSupplierId.getText();
+        SuppliersController supplier = new SuppliersController();
+        String name = supplier.getSupplierName(id);
+
+        if (name != null) {
+            lblSupplierName.setText(name);
+        } else {
+            lblSupplierName.setText("Not Found!");
+        }
+    }
+
+
+
+    public int generateInvoiceNo() {
+        try {
+            Connection con = DBConnection.getInstance();
+            String sql = "SELECT invoice_no FROM purchase_history ORDER BY invoice_no DESC LIMIT 1";
+            ResultSet rs = con.prepareStatement(sql).executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) + 1;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
 
 
 }

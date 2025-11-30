@@ -306,5 +306,23 @@ public class SuppliersController implements Initializable {
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
     }
+
+    public String getSupplierName(String supplierId) {
+        try {
+            Connection con = DBConnection.getInstance();
+            String sql = "SELECT name FROM suppliers WHERE supplier_id = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, supplierId);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("name");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
  
