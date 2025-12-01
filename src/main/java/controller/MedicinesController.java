@@ -12,6 +12,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.dto.Medicines;
+import service.MedicineService;
+import service.impl.MedicineServiceImpl;
 import util.DBConnection;
 
 import java.io.IOException;
@@ -61,6 +63,7 @@ public class MedicinesController implements Initializable {
     private TextField txtSearch;
 
     static ObservableList<Medicines> medicineList = FXCollections.observableArrayList();
+    MedicineService medicineService = new MedicineServiceImpl();
 
     @FXML
     void btnAddMedicineOnAction(ActionEvent event) throws IOException {

@@ -19,4 +19,6 @@ public class Medicines {
     private double sellingPrice;
     private String supplier;
     private boolean remaining;
+
+
 }

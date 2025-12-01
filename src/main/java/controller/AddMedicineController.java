@@ -6,11 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import model.dto.Medicines;
+import org.apache.logging.log4j.message.StringMapMessage;
+import service.MedicineService;
+import service.impl.MedicineServiceImpl;
 import util.DBConnection;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 
 
 public class AddMedicineController  {
@@ -36,33 +42,46 @@ public class AddMedicineController  {
     @FXML
     private Button btnAdd;
 
+    MedicineService medicineService = new MedicineServiceImpl();
+
     @FXML
     void btnAddOnAction(ActionEvent event) {
 
         try {
-            Connection con = DBConnection.getInstance();
-            String sql = "INSERT INTO medicines " +
-                    "(medicineId, name, brand, batchNo, expiryDate, quantity, purchasePrice, sellingPrice, supplier) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, txtMedicineID.getText());
-            ps.setString(2, txtMedicineName.getText());
-            ps.setString(3, txtBrand.getText());
-            ps.setString(4, txtBatchNo.getText());
-            ps.setDate(5, java.sql.Date.valueOf(txtExpiryDate.getText()));
-            ps.setInt(6, Integer.parseInt(txtQuantity.getText()));
-            ps.setDouble(7, Double.parseDouble(txtPurchasePrice.getText()));
-            ps.setDouble(8, Double.parseDouble(txtSellingPrice.getText()));
-            ps.setString(9, txtSupplier.getText());
+            String expiryText = txtExpiryDate.getText().trim();
+            if (expiryText.isEmpty()) {
+                showAlert("Error", "Expiry Date cannot be empty!");
+                return;
+            }
 
-            ps.executeUpdate();
+            LocalDate expiryDate;
+            try {
+                expiryDate = LocalDate.parse(expiryText);
+            } catch (Exception ex) {
+                showAlert("Error", "Invalid date format! Use yyyy-MM-dd");
+                return;
+            }
 
+            Medicines medicines = new Medicines(
+                    txtMedicineID.getText(),
+                    txtMedicineName.getText(),
+                    txtBrand.getText(),
+                    txtBatchNo.getText(),
+                    expiryDate,
+                    Integer.parseInt(txtQuantity.getText()),
+                    Double.parseDouble(txtPurchasePrice.getText()),
+                    Double.parseDouble(txtSellingPrice.getText()),
+                    txtSupplier.getText(),
+                    true
+            );
+
+            medicineService.AddMedicines(medicines);
             showAlert("Success", "Medicine Added Successfully!");
 
         } catch (Exception e) {
-            e.printStackTrace();
             showAlert("Error", e.getMessage());
+            e.printStackTrace();
         }
     }
 
