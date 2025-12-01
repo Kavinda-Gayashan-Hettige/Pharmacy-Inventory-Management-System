@@ -83,20 +83,9 @@ public class SuppliersController implements Initializable {
             showAlert("Error", "Please select a row!");
             return;
         }
-
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "DELETE FROM suppliers WHERE supplier_id=?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, selected.getSupplierId());
-            ps.executeUpdate();
-
-            loadTable();
-            showAlert("Deleted", "Supplier Deleted");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            supplierService.DeleteSupplierById(selected);
+        loadTable();
+        showAlert("Deleted", "Supplier Deleted");
     }
     private void showAlert(String title, String msg) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -114,74 +103,34 @@ public class SuppliersController implements Initializable {
     }
 
     private void viewSupplierByName(String supplier) {
-       suppliersList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
+        suppliersList.clear();
 
-            String SQL = "SELECT * FROM suppliers WHERE name = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, supplier);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-
-                Suppliers c = new Suppliers(
-                        rs.getString("supplier_id"),
-                        rs.getString("name"),
-                        rs.getString("contact_person"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address")
-                );
-                suppliersList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        Suppliers s = supplierService.ViewSupplierByName(supplier);
+        if (s != null) {
+            suppliersList.add(s);
         }
     }
+
 
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
         try {
             Suppliers selectedItem = tblSupplier.getSelectionModel().getSelectedItem();
+            txtSupplierID.setEditable(false);
+
+
             if (selectedItem != null) {
 
 
-                selectedItem.setSupplierId(txtSupplierID.getText());
                 selectedItem.setName(txtName.getText());
                 selectedItem.setContactPerson(txtContactPerson.getText());
                 selectedItem.setPhone(txtPhone.getText());
                 selectedItem.setEmail(txtEmail.getText());
                 selectedItem.setAddress(txtAddress.getText());
 
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234")) {
-                    String sql = "UPDATE suppliers SET name=?, contact_person=?, phone=?, email=?, address=? WHERE supplier_id=?";
-                    PreparedStatement ps = connection.prepareStatement(sql);
-
-                    ps.setString(6, selectedItem.getSupplierId());
-                    ps.setString(1, selectedItem.getName());
-                    ps.setString(2,selectedItem.getContactPerson());
-                    ps.setString(3, selectedItem.getPhone());
-                    ps.setString(4, selectedItem.getEmail());
-                    ps.setString(5, selectedItem.getAddress());
-
-                    int rowsAffected = ps.executeUpdate();
-                    if (rowsAffected > 0) {
-                        System.out.println("Supplier updated successfully.");
-                    } else {
-                        System.out.println("No supplier found with ID: " + selectedItem.getSupplierId());
-                    }
-
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-
+                supplierService.UpdateSupplier(selectedItem);
 
                 loadTable();
-
             } else {
                 new Alert(Alert.AlertType.ERROR, "No supplier selected!").show();
             }
@@ -192,43 +141,21 @@ public class SuppliersController implements Initializable {
     }
 
 
+
     public void btnSearchByIdOnAction(ActionEvent actionEvent) {
         String supplier = txtSearch.getText();
         viewSupplierBySupplierID(supplier);
     }
 
     private void viewSupplierBySupplierID(String supplier) {
-       suppliersList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
-
-            String SQL = "SELECT * FROM suppliers WHERE supplier_id = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, supplier);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-
-                Suppliers c = new Suppliers(
-                        rs.getString("supplier_id"),
-                        rs.getString("name"),
-                        rs.getString("contact_person"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address")
-                );
-                suppliersList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        suppliersList.clear();
+        suppliersList.addAll(supplierService.ViewSupplierBySupplierId(supplier));
+        tblSupplier.setItems(suppliersList);
     }
 
 
-    static ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
+
+    ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colSupplierID.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
@@ -238,35 +165,35 @@ public class SuppliersController implements Initializable {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
 
+        tblSupplier.setOnMouseClicked(event -> {
+            Suppliers s = tblSupplier.getSelectionModel().getSelectedItem();
+            if (s != null) {
+                txtSupplierID.setText(s.getSupplierId());
+                txtName.setText(s.getName());
+                txtContactPerson.setText(s.getContactPerson());
+                txtPhone.setText(s.getPhone());
+                txtEmail.setText(s.getEmail());
+                txtAddress.setText(s.getAddress());
+            }
+        });
+
+        txtSupplierID.setEditable(true);
+
+
         tblSupplier.setItems(suppliersList);
         loadTable();
+
+
+
     }
 
     public void loadTable() {
         suppliersList.clear();
-
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "SELECT * FROM suppliers";
-            ResultSet rs = con.prepareStatement(sql).executeQuery();
-
-            while (rs.next()) {
-
-                suppliersList.add(new Suppliers(
-                        rs.getString("supplier_id"),
-                        rs.getString("name"),
-                        rs.getString("contact_person"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address")
-                ));
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        suppliersList.addAll(supplierService.GetAllSuppliers());
+        tblSupplier.setItems(suppliersList);
     }
+
+
 
 
     public void btnFilterByContactPersonOnAction(ActionEvent actionEvent) {
@@ -276,32 +203,7 @@ public class SuppliersController implements Initializable {
 
     private void viewSupplierByContactPerson(String supplier) {
        suppliersList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
-
-            String SQL = "SELECT * FROM suppliers WHERE contact_person = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, supplier);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-
-                Suppliers c = new Suppliers(
-                        rs.getString("supplier_id"),
-                        rs.getString("name"),
-                        rs.getString("contact_person"),
-                        rs.getString("phone"),
-                        rs.getString("email"),
-                        rs.getString("address")
-                );
-                suppliersList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+       suppliersList.addAll(supplierService.ViewSupplierByContactPerson(supplier));
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) {
