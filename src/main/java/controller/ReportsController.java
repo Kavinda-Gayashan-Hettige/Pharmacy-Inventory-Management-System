@@ -91,7 +91,18 @@ public class ReportsController {
 
     @FXML
     void btnMonthlySalesReportOnAction(ActionEvent event) {
+        try {
+            JasperDesign design = JRXmlLoader.load("src/main/resources/report/Monthly_Sale_Report.jrxml");
 
+            JasperReport jasperReport = JasperCompileManager.compileReport(design);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance());
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint,"monthly_sale_report.pdf");
+
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

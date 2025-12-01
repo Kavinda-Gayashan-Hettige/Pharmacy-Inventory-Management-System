@@ -1,0 +1,174 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="Monthly_Sale_Report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e558a455-7497-402a-83cf-980aa31df434">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (5)"/>
+	<parameter name="ReportYear" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[2025]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ReportMonth" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<query language="SQL"><![CDATA[SELECT 
+    customer_id,
+    customer_name,
+    medicine_name,
+    qty,
+    sale_price,
+    (qty * sale_price) AS total_amount,
+    sale_date,
+    CAST(MONTH(sale_date) AS CHAR) AS sale_month,
+    CAST(YEAR(sale_date) AS CHAR) AS sale_year
+FROM customers
+WHERE YEAR(sale_date) = $P{ReportYear}
+  AND MONTH(sale_date) = $P{ReportMonth};
+]]></query>
+	<field name="customer_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="customer_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="customer_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="customer_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="customer_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="customer_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="medicine_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="medicine_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="medicine_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="sale_price" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="sale_price"/>
+		<property name="com.jaspersoft.studio.field.label" value="sale_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="total_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_amount"/>
+	</field>
+	<field name="sale_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="sale_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="sale_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="sale_month" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sale_month"/>
+		<property name="com.jaspersoft.studio.field.label" value="sale_month"/>
+	</field>
+	<field name="sale_year" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="sale_year"/>
+		<property name="com.jaspersoft.studio.field.label" value="sale_year"/>
+	</field>
+	<variable name="total_amount1" resetType="Column" calculation="Sum" class="java.lang.Double">
+		<expression><![CDATA[$F{total_amount}]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<title height="54" splitType="Stretch">
+		<element kind="staticText" uuid="cb500d3c-4d6e-4d47-ae4d-a61cb955d744" x="80" y="10" width="400" height="30" fontSize="19.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[Pharmacy Inventory Management System]]></text>
+		</element>
+	</title>
+	<pageHeader height="41" splitType="Stretch">
+		<element kind="staticText" uuid="678fc4fb-07d9-4c8d-a322-3b6b03d8b5c6" x="194" y="2" width="159" height="17" hTextAlign="Center">
+			<text><![CDATA[No.356, Galle Road, Panadura.]]></text>
+		</element>
+		<element kind="textField" uuid="63445d3c-0c0e-4ca3-9301-83fdb6db03d5" x="439" y="1" width="100" height="18" pattern="MMMMM dd, yyyy">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+		<element kind="textField" uuid="e9b4aeae-b61c-428c-b40a-06169f35801c" x="439" y="14" width="100" height="17" pattern="HH:mm">
+			<expression><![CDATA[new java.util.Date()]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="30" splitType="Stretch">
+		<element kind="staticText" uuid="d998e756-aa8b-4ba6-a91d-f1203bcb5b1d" x="51" y="0" width="90" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[MEDICINE]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="762e5289-3926-4c82-b9a8-5946b454d226"/>
+		</element>
+		<element kind="staticText" uuid="70a38bb5-474c-4911-aa59-e486770bfa78" x="201" y="1" width="78" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[SALE PRICE]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9cb84fc-906e-471e-9619-9af77c19a7d8"/>
+		</element>
+		<element kind="staticText" uuid="7509870b-ca4d-4c84-b5e8-2fdc23105cab" x="354" y="0" width="86" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[SALE DATE]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7d15414c-57ff-484d-9d2f-19ea4f4f4b42"/>
+		</element>
+		<element kind="staticText" uuid="d5b2a879-188c-44e0-8aac-5ca32f812990" x="-19" y="0" width="69" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[CUSTOMER]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e61f2fb-9871-4f23-9b7d-7d2be100b3ec"/>
+		</element>
+		<element kind="staticText" uuid="a20d10cc-2c35-433a-9f8f-32c6db88adf0" x="142" y="1" width="58" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[QTY]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b143d8b7-043e-4b47-a29c-e41ff1eae377"/>
+		</element>
+		<element kind="staticText" uuid="4edc4d35-c471-4a19-918c-83dd8e253b62" x="280" y="1" width="75" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[TOTAL AMOUNT]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c6a15a93-1dba-4416-a23a-231e3d7a27d6"/>
+		</element>
+		<element kind="staticText" uuid="26da3530-3f0c-4e97-a1ce-a01557edc8da" x="510" y="0" width="60" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[ YEAR]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="436ec105-2fc2-4377-8c76-9eda8cb00e1a"/>
+		</element>
+		<element kind="staticText" uuid="caae59ed-553f-45f2-b938-a99c93e42070" x="440" y="0" width="70" height="20" bold="true" hTextAlign="Center">
+			<text><![CDATA[SALE MONTH]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d92aba65-c828-4d89-b590-7a7b4dac4ef3"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<element kind="textField" uuid="c2f161cd-19f9-4e0f-93ff-97e5ad04d96f" x="51" y="1" width="90" height="18" hTextAlign="Center">
+				<expression><![CDATA[$F{medicine_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="762e5289-3926-4c82-b9a8-5946b454d226"/>
+			</element>
+			<element kind="textField" uuid="2d1271e4-d23f-47c1-aad4-206ccbeeba97" x="201" y="2" width="79" height="19" hTextAlign="Center">
+				<expression><![CDATA[$F{sale_price}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9cb84fc-906e-471e-9619-9af77c19a7d8"/>
+			</element>
+			<element kind="textField" uuid="063a5dd2-c6c1-4eb5-8535-45241b157af7" x="354" y="0" width="86" height="18" hTextAlign="Center">
+				<expression><![CDATA[$F{sale_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7d15414c-57ff-484d-9d2f-19ea4f4f4b42"/>
+			</element>
+			<element kind="textField" uuid="a9b7f0a5-5f62-4ba6-b183-59cd8c73081b" x="-19" y="0" width="69" height="19" hTextAlign="Center">
+				<expression><![CDATA[$F{customer_name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e61f2fb-9871-4f23-9b7d-7d2be100b3ec"/>
+			</element>
+			<element kind="textField" uuid="177edf1d-fc89-4c46-9b8f-f4a1ea728a24" x="141" y="1" width="59" height="19" hTextAlign="Center">
+				<expression><![CDATA[$F{qty}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b143d8b7-043e-4b47-a29c-e41ff1eae377"/>
+			</element>
+			<element kind="textField" uuid="588e01e3-8d14-49de-b774-77bcb0dd77a7" x="280" y="1" width="75" height="19" hTextAlign="Center">
+				<expression><![CDATA[$F{total_amount}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c6a15a93-1dba-4416-a23a-231e3d7a27d6"/>
+			</element>
+			<element kind="textField" uuid="17144f78-5bfe-4421-b282-c11e8c8b24d9" x="510" y="0" width="60" height="18" hTextAlign="Center">
+				<expression><![CDATA[$F{sale_year}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="436ec105-2fc2-4377-8c76-9eda8cb00e1a"/>
+			</element>
+			<element kind="textField" uuid="5b64fde9-c941-45e5-a9a9-59defb9ac2c7" x="440" y="0" width="70" height="19" hTextAlign="Center">
+				<expression><![CDATA[$F{sale_month}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d92aba65-c828-4d89-b590-7a7b4dac4ef3"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="74" splitType="Stretch">
+		<element kind="staticText" uuid="b8ddb1bb-e94f-4465-95f3-259afd649b29" x="183" y="0" width="89" height="20" fontSize="12.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[TOTAL SALE :]]></text>
+		</element>
+		<element kind="textField" uuid="f037c05f-5c3c-4e6a-96ed-3956f606d4f8" x="272" y="0" width="100" height="20" fontSize="12.0" bold="true" hTextAlign="Center">
+			<expression><![CDATA[$V{total_amount1}]]></expression>
+		</element>
+	</columnFooter>
+	<pageFooter height="52" splitType="Stretch">
+		<element kind="staticText" uuid="2d3787c6-4a7d-4a4e-9f96-2f163e6e64fe" x="230" y="3" width="100" height="17" fontSize="13.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[THANK YOU!]]></text>
+		</element>
+		<element kind="staticText" uuid="87da8433-7b0f-4837-99f1-158cf68511b4" x="110" y="36" width="340" height="14" hTextAlign="Center">
+			<text><![CDATA[CONTACT US  |  Tel: +77885944561  |  Email: kghpharmacy@gmail.com]]></text>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
