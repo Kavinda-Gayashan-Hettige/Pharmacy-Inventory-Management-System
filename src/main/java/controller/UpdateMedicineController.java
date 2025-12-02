@@ -8,9 +8,9 @@ import model.dto.Medicines;
 import service.MedicineService;
 import service.impl.MedicineServiceImpl;
 
-import java.sql.*;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 public class UpdateMedicineController {
 
@@ -49,7 +49,6 @@ public class UpdateMedicineController {
     public void setMedicinesController(MedicinesController controller) {
         this.medicinesController = controller;
     }
-
 
 
     MedicineService medicineService = new MedicineServiceImpl();
@@ -103,6 +102,7 @@ public class UpdateMedicineController {
         txtSupplier.setText(medicines.getSupplier());
         txtPurchasePrice.setText(String.valueOf(medicines.getPurchasePrice()));
     }
+
 
 
 }

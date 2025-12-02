@@ -8,14 +8,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+
 import model.dto.Medicines;
 import model.dto.PurchaseMedicines;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
+
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import service.PurchaseMedicineService;
+import service.impl.PurchaseMedicineServiceImpl;
 import util.DBConnection;
 
 import java.net.URL;
@@ -37,9 +39,6 @@ public class PurchaseMedicinesController implements Initializable {
     public Label lblSupplierName;
     @FXML
     private Button btnAddToCart;
-
-    @FXML
-    private Button btnAddToCart1;
 
     @FXML
     private TableColumn<?, ?> colMedicineName;
@@ -65,7 +64,7 @@ public class PurchaseMedicinesController implements Initializable {
     @FXML
     private TableView<PurchaseMedicines> tblAddToCart;
 
-
+PurchaseMedicineService purchaseMedicineService = new PurchaseMedicineServiceImpl();
 
     @FXML
     void btnAddToCartOnAction(ActionEvent event) {
@@ -114,17 +113,6 @@ public class PurchaseMedicinesController implements Initializable {
 
         return total;
     }
-//    public double calculateNetTotal() {
-//        double total = 0;
-//
-//        for (PurchaseMedicines item : purchaseList) {
-//            total += item.getSubTotal();
-//        }
-//
-//        lblNetTotal.setText(String.valueOf(total));
-//        return total;
-//    }
-
 
 
     @FXML
@@ -236,33 +224,10 @@ public class PurchaseMedicinesController implements Initializable {
     }
 
     public void loadTable() {
+
         purchaseList.clear();
-
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "SELECT * FROM purchase_medicines";
-            ResultSet rs = con.prepareStatement(sql).executeQuery();
-
-            while (rs.next()) {
-
-                purchaseList.add(new PurchaseMedicines(
-                        rs.getString("purchase_id"),
-                        rs.getString("medicine_name"),
-                        rs.getDouble("unit_price"),
-                        rs.getDouble("discount"),
-                        rs.getDate("date").toLocalDate(),
-                        rs.getInt("qty"),
-
-                        0
-                ));
-
-            }
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        purchaseList=purchaseMedicineService.loadTable();
+       tblAddToCart.setItems(purchaseList);
     }
 
 

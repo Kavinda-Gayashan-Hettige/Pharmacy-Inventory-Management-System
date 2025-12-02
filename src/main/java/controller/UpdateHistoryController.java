@@ -3,9 +3,12 @@ package controller;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 
 import model.dto.PurchaseHistory;
+import service.PurchaseHistoryService;
+import service.impl.PurchaseHistoryServiceImpl;
 
 import java.sql.*;
 
@@ -21,6 +24,13 @@ public class UpdateHistoryController {
     @FXML
     private Button btnUpdate;
 
+    private PurchaseHistoryController purchaseHistoryController;
+
+    public void setPurchaseHistoryController(PurchaseHistoryController controller) {
+        this.purchaseHistoryController = controller;
+    }
+
+    PurchaseHistoryService purchaseHistoryService = new PurchaseHistoryServiceImpl();
 
     public  void setSelectedItem(PurchaseHistory newValue) {
         setSelectedPurchaseHistory(newValue);
@@ -40,36 +50,15 @@ public class UpdateHistoryController {
         );
         setSelectedItem(purchaseHistory);
         updatePurchaseHistory(purchaseHistory);
-        new PurchaseHistoryController().loadTable();
-
+        purchaseHistoryController.loadTable();
+        btnUpdate.getScene().getWindow().hide();
     }
 
 
     private void updatePurchaseHistory(PurchaseHistory purchaseHistory) {
-        try (Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/pharmacydb", "root", "1234")) {
 
-            String sql = "UPDATE purchase_history SET date=?, supplier_name=?, total=?, payment_type=? WHERE invoice_no=?";
-            PreparedStatement ps = connection.prepareStatement(sql);
+      purchaseHistoryService.updatePurchaseHistory(purchaseHistory);
 
-            ps.setInt(5, Integer.parseInt(String.valueOf(purchaseHistory.getInvoiceNo())));
-            ps.setDate(1, Date.valueOf(String.valueOf(purchaseHistory.getDate())));
-            ps.setString(2,purchaseHistory.getSupplierName());
-            ps.setDouble(3, Double.parseDouble(String.valueOf(purchaseHistory.getTotal())));
-            ps.setString(4,purchaseHistory.getPaymentType());
-
-
-
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("History updated successfully.");
-            } else {
-                System.out.println("No history found with ID: " + purchaseHistory.getInvoiceNo());
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 

@@ -53,12 +53,6 @@ txtAdmin.setText(" Kavinda");
 
     }
 
-//    @FXML
-//    void btnSaveSettingOnAction(ActionEvent event) {
-//        String name = setPharmacyName();
-//        System.out.println("Saved Name: " + name);
-//    }
-
 
     @FXML
     void btnSaveSettingOnAction(ActionEvent event) {

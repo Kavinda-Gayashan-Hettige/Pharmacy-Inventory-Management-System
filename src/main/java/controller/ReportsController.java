@@ -9,6 +9,8 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import service.ReportsService;
+import service.impl.ReportsServiceImpl;
 import util.DBConnection;
 
 import java.sql.Connection;
@@ -36,6 +38,8 @@ public class ReportsController {
 
     @FXML
     private TextField txtToDate;
+
+    ReportsService reportsService = new ReportsServiceImpl();
 
     @FXML
     void btnDailySalesReportOnAction(ActionEvent event) {
