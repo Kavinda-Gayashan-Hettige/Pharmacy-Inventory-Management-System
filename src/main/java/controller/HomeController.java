@@ -13,14 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.dto.Medicines;
 import service.HomeService;
 import service.impl.HomeServiceImpl;
-import util.DBConnection;
+
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
@@ -55,8 +52,8 @@ public class HomeController implements Initializable {
     private TableView<Medicines> tblLowStockItems;
 
 
-    private static int LOW_STOCK_THRESHOLD = 100;
-    private int expiryAlertDays = 30;
+    private static int LOW_STOCK_THRESHOLD = 50;
+    private static int expiryAlertDays = 30;
 
     static ObservableList<Medicines> lowStockList  = FXCollections.observableArrayList();
     private ObservableList<Medicines> expiringList = FXCollections.observableArrayList();

@@ -85,20 +85,9 @@ public class MedicinesController implements Initializable {
             showAlert("Error", "Please select a row!");
             return;
         }
-
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "DELETE FROM medicines WHERE medicineId=?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, selected.getMedicineId());
-            ps.executeUpdate();
-
-            loadTable();
-            showAlert("Deleted", "Medicine Deleted");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        medicineService.DeleteMedicines(selected);
+        loadTable();
+        showAlert("Deleted", "Medicine Deleted");
     }
 
 
@@ -106,44 +95,14 @@ public class MedicinesController implements Initializable {
     @FXML
     void btnFilterByExpiryDateOnAction(ActionEvent event) {
         String expiryDate = txtSearch.getText();
-        viewMedicineByExpiryDate(expiryDate);
+         viewMedicineByExpiryDate(expiryDate);
     }
 
     private void viewMedicineByExpiryDate(String expiryDate) {
         medicineList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
-
-            String SQL = "SELECT * FROM medicines WHERE expiryDate = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, expiryDate);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-                boolean remaining=false;
-                Medicines c = new Medicines(
-                        rs.getString("medicineId"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("batchNo"),
-                        rs.getDate("expiryDate").toLocalDate(),
-                        rs.getInt("quantity"),
-                        rs.getDouble("purchasePrice"),
-                        rs.getDouble("sellingPrice"),
-                        rs.getString("supplier"),
-                        remaining
-                );
-                medicineList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        medicineList = medicineService.viewMedicineByExpiryDate(expiryDate);
+        tblMedicine.setItems(medicineList);
     }
-
-
 
 
 @FXML
@@ -154,37 +113,8 @@ public class MedicinesController implements Initializable {
 
     private void viewMedicineBySupplier(String supplier) {
         medicineList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
-
-            String SQL = "SELECT * FROM medicines WHERE supplier = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, supplier);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-                boolean remaining= false;
-
-                Medicines c = new Medicines(
-                        rs.getString("medicineId"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("batchNo"),
-                        rs.getDate("expiryDate").toLocalDate(),
-                        rs.getInt("quantity"),
-                        rs.getDouble("purchasePrice"),
-                        rs.getDouble("sellingPrice"),
-                        rs.getString("supplier"),
-                        remaining
-                );
-                medicineList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        medicineList=medicineService.viewMedicineBySupplier(supplier);
+       tblMedicine.setItems(medicineList);
     }
 
 
@@ -230,36 +160,8 @@ public class MedicinesController implements Initializable {
 
     void loadTable() {
         medicineList.clear();
-
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "SELECT * FROM medicines";
-            ResultSet rs = con.prepareStatement(sql).executeQuery();
-
-            while (rs.next()) {
-                boolean remaining = false;
-
-                medicineList.add(new Medicines(
-                        rs.getString("medicineId"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("batchNo"),
-                        rs.getDate("expiryDate").toLocalDate(),
-                        rs.getInt("quantity"),
-                        rs.getDouble("purchasePrice"),
-                        rs.getDouble("sellingPrice"),
-                        rs.getString("supplier"),
-                        remaining
-
-
-                ));
-            }
-
-            tblMedicine.setItems(medicineList);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        medicineList=medicineService.loadTable();
+        tblMedicine.setItems(medicineList);
     }
 
     private void showAlert(String title, String msg) {
@@ -270,29 +172,27 @@ public class MedicinesController implements Initializable {
 
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) throws IOException {
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) throws IOException {
 
-        Medicines selected = tblMedicine.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            System.out.println("Please select a row first!");
-            return;
-        }
+        Medicines selectedMedicine = tblMedicine.getSelectionModel().getSelectedItem();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/update_medicine.fxml"));
         Parent root = loader.load();
 
-
         UpdateMedicineController controller = loader.getController();
-        controller.setSelectedItem(selected);
 
 
+        controller.setMedicinesController(this);
+
+
+        controller.setSelectedItem(selectedMedicine);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-
     }
+
 
     public void btnSearchByIDOnAction(ActionEvent actionEvent) {
         String medicineId = txtSearch.getText();
@@ -301,57 +201,16 @@ public class MedicinesController implements Initializable {
 
     private void viewMedicineByID(String medicineId) {
         medicineList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
-
-            String SQL = "SELECT * FROM medicines WHERE medicineId = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, medicineId);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-                boolean remaining = false;
-
-                Medicines c = new Medicines(
-                        rs.getString("medicineId"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("batchNo"),
-                        rs.getDate("expiryDate").toLocalDate(),
-                        rs.getInt("quantity"),
-                        rs.getDouble("purchasePrice"),
-                        rs.getDouble("sellingPrice"),
-                        rs.getString("supplier"),
-                        remaining
-                );
-                medicineList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        medicineList=medicineService.viewMedicineByID(medicineId);
+       tblMedicine.setItems(medicineList);
     }
 
 
 
     public boolean increaseStock(String medicineId, int receivedQty) {
-        try {
-            Connection connection = DBConnection.getInstance();
-            String sql = "UPDATE medicines SET quantity = quantity + ? WHERE medicineId = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setInt(1, receivedQty);
-            ps.setString(2, medicineId);
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
+        return medicineService.increaseStock(medicineId, receivedQty);
     }
+
     public ObservableList<Medicines> getTotalMedicineList() {
         return tblMedicine.getItems();  // returns the list in the table
     }

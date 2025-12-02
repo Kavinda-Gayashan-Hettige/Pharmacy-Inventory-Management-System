@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import model.dto.Medicines;
+import service.MedicineService;
+import service.impl.MedicineServiceImpl;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -42,13 +44,28 @@ public class UpdateMedicineController {
     @FXML
     private  JFXTextField txtSupplier;
 
+    private MedicinesController medicinesController;
+
+    public void setMedicinesController(MedicinesController controller) {
+        this.medicinesController = controller;
+    }
+
+
+
+    MedicineService medicineService = new MedicineServiceImpl();
+
+
     public  void setSelectedItem(Medicines newValue) {
-        setSelectedMedicines(newValue);
+        try {
+            setSelectedMedicines(newValue);
+        }catch( NullPointerException e) {
+           System.out.println("");
+        }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        boolean remaining=false;
+
         Medicines medicines = new Medicines(
                 txtMedicineID.getText(),
                 txtMedicineName.getText(),
@@ -59,42 +76,19 @@ public class UpdateMedicineController {
                 Double.parseDouble(txtPurchasePrice.getText()),
                 Double.parseDouble(txtSellingPrice.getText()),
                 txtSupplier.getText(),
-                remaining
+                false
         );
         setSelectedItem(medicines);
         updateMedicine(medicines);
-        new MedicinesController().loadTable();
-
+        medicinesController.loadTable();
+        btnUpdate.getScene().getWindow().hide();
     }
 
 
-    private void updateMedicine(Medicines medicines) {
-        try (Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/pharmacydb", "root", "1234")) {
+    private int updateMedicine(Medicines medicines) {
+       int selected = medicineService.updateMedicine(medicines);
+       return selected;
 
-            String sql = "UPDATE medicines SET name=?, brand=?, batchNo=?, expiryDate=?, quantity=?, purchasePrice=?, sellingPrice=?, supplier=? WHERE medicineId=?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            ps.setString(1, medicines.getName());
-            ps.setString(2, medicines.getBrand());
-            ps.setString(3, medicines.getBatchNo());
-            ps.setDate(4, java.sql.Date.valueOf(medicines.getExpiryDate())); // safer than Timestamp
-            ps.setInt(5, medicines.getQuantity());
-            ps.setDouble(6, medicines.getPurchasePrice());
-            ps.setDouble(7, medicines.getSellingPrice());
-            ps.setString(8, medicines.getSupplier());
-            ps.setString(9, medicines.getMedicineId()); // WHERE clause
-
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Medicine updated successfully.");
-            } else {
-                System.out.println("No medicine found with ID: " + medicines.getMedicineId());
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
 
