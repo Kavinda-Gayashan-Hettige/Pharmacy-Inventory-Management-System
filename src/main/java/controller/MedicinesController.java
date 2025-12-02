@@ -14,13 +14,11 @@ import javafx.stage.Stage;
 import model.dto.Medicines;
 import service.MedicineService;
 import service.impl.MedicineServiceImpl;
-import util.DBConnection;
+
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ResourceBundle;
 
 public class MedicinesController implements Initializable {
@@ -212,7 +210,7 @@ public class MedicinesController implements Initializable {
     }
 
     public ObservableList<Medicines> getTotalMedicineList() {
-        return tblMedicine.getItems();  // returns the list in the table
+        return tblMedicine.getItems();
     }
 
 

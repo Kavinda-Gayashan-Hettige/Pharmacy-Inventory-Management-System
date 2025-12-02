@@ -6,10 +6,7 @@ import model.dto.Medicines;
 import repositiry.HomeRepository;
 import repositiry.impl.HomeRepositoryImpl;
 import service.HomeService;
-import util.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class HomeServiceImpl implements HomeService {

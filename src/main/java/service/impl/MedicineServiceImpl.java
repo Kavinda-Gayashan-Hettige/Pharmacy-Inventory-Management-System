@@ -1,6 +1,5 @@
 package service.impl;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.dto.Medicines;

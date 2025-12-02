@@ -6,17 +6,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 import model.dto.Medicines;
 import model.dto.PurchaseHistory;
-import model.dto.PurchaseMedicines;
+
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import service.PurchaseHistoryService;
+import service.impl.PurchaseHistoryServiceImpl;
 import util.DBConnection;
 
 import java.io.IOException;
@@ -56,33 +60,20 @@ public class PurchaseHistoryController implements Initializable {
     private TableColumn<?, ?> colTotal;
 
 
-
+PurchaseHistoryService purchaseHistoryService = new PurchaseHistoryServiceImpl();
 
     @FXML
     void btnDeleteRecordOnAction(ActionEvent event) {
 
         PurchaseHistory selected = (PurchaseHistory) tblPurchaseHistory.getSelectionModel().getSelectedItem();
-
+        purchaseHistoryService.DeleteRecord(selected);
         if (selected == null) {
             showAlert("Error", "Please select a row!");
             return;
         }
-        Connection connection = null;
-        try {
-            connection = DBConnection.getInstance();
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "DELETE FROM purchase_history WHERE invoice_no=?"
-            );
 
-            preparedStatement.setString(1, String.valueOf(selected.getInvoiceNo()));
-            preparedStatement.executeUpdate();
-
-            loadTable();
-            showAlert("Deleted", "Medicine Deleted");
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        loadTable();
+        showAlert("Deleted", "Medicine Deleted");
 
     }
 
@@ -95,23 +86,39 @@ public class PurchaseHistoryController implements Initializable {
 
     @FXML
     void btnReprintInvoiceOnAction(ActionEvent event) throws IOException {
-    Stage stage = new Stage();
-    stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/update_history.fxml"))));
-    stage.show();
+
+        PurchaseHistory selected = tblPurchaseHistory.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            showAlert("Error", "Please select a record!");
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/update_history.fxml"));
+        Parent root = loader.load();
+
+        UpdateHistoryController controller = loader.getController();
 
 
+        controller.setPurchaseHistoryController(this);
+
+
+        controller.setSelectedItem(selected);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
+
 
     @FXML
     void btnViewInvoiceOnAction(ActionEvent event) {
         try {
             JasperDesign design = JRXmlLoader.load("src/main/resources/report/PurchaseHistory.jrxml");
 
-
 //            JRDesignQuery jrDesignQuery = new JRDesignQuery();
 //            jrDesignQuery.setText("SELECT * FROM purchase_history WHERE invoice_no = '1'");
 //            design.setQuery(jrDesignQuery);
-
 
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DBConnection.getInstance());
@@ -144,29 +151,8 @@ public class PurchaseHistoryController implements Initializable {
 
     public void loadTable() {
         purchaseList.clear();
-
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "SELECT * FROM purchase_history";
-            ResultSet rs = con.prepareStatement(sql).executeQuery();
-
-            while (rs.next()) {
-
-                purchaseList.add(new PurchaseHistory(
-                        rs.getInt("invoice_no"),
-                        rs.getDate("date").toLocalDate(),
-                        rs.getString("supplier_name"),
-                        rs.getDouble("total"),
-                        rs.getString("payment_type")
-
-                ));
-
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+       purchaseList= purchaseHistoryService.loadTable();
+      tblPurchaseHistory.setItems(purchaseList);
     }
 
     public void txtDateOnAction(ActionEvent actionEvent) {
@@ -179,33 +165,9 @@ public class PurchaseHistoryController implements Initializable {
 
     private void viewHistoryByExpiryDate(String expiryDate) {
         purchaseList.clear();
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pharmacydb", "root", "1234");
-
-            String SQL = "SELECT * FROM purchase_history WHERE date = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(SQL);
-            preparedStatement.setString(1, expiryDate);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-
-            while (rs.next()) {
-
-                PurchaseHistory c = new PurchaseHistory(
-                        rs.getInt("invoice_no"),
-                        rs.getDate("date").toLocalDate(),
-                        rs.getString("supplier_name"),
-                        rs.getDouble("total"),
-                        rs.getString("payment_type")
-                );
-                purchaseList.add(c);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        purchaseList=purchaseHistoryService.viewHistoryByExpiryDate(expiryDate);
+      tblPurchaseHistory.setItems(purchaseList);
     }
-
 
 
 }
