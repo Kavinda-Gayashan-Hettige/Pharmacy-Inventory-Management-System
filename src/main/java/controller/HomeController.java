@@ -11,6 +11,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import model.dto.Medicines;
+import service.HomeService;
+import service.impl.HomeServiceImpl;
 import util.DBConnection;
 
 import java.io.IOException;
@@ -58,6 +60,8 @@ public class HomeController implements Initializable {
 
     static ObservableList<Medicines> lowStockList  = FXCollections.observableArrayList();
     private ObservableList<Medicines> expiringList = FXCollections.observableArrayList();
+
+    HomeService homeService = new HomeServiceImpl();
 
 
     public static void setLowStockThreshold(int threshold) {
@@ -130,31 +134,8 @@ public class HomeController implements Initializable {
 
     private void loadExpiringMedicines() {
         expiringList.clear();
-        try {
-            Connection con = DBConnection.getInstance();
-            String sql = "SELECT * FROM medicines WHERE DATEDIFF(expiryDate, CURDATE()) <= ?";
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, expiryAlertDays);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                expiringList.add(new Medicines(
-                        rs.getString("medicineId"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("batchNo"),
-                        rs.getDate("expiryDate").toLocalDate(),
-                        rs.getInt("quantity"),
-                        rs.getDouble("purchasePrice"),
-                        rs.getDouble("sellingPrice"),
-                        rs.getString("supplier"),
-                        rs.getInt("quantity") > 0 // remaining
-                ));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        expiringList = homeService.loadExpiringMedicines(expiryAlertDays);
+        tblExpiringMedicines.setItems(expiringList);
         setLowStockMedicines();
 
         loadLowStockMedicine(HomeController.getLowStockThreshold());
@@ -164,48 +145,8 @@ public class HomeController implements Initializable {
 
     public void loadLowStockMedicine(int threshold){
         lowStockList.clear();
-
-        try {
-            Connection conn = DBConnection.getInstance();
-            String sql = "SELECT * FROM medicines WHERE quantity < ?";
-            conn= DBConnection.getInstance();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, threshold);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-
-                int quantity = rs.getInt("quantity");
-
-
-                boolean remaining;
-
-                if (quantity == 0) {
-                    remaining = false;
-                } else {
-                    remaining = true;
-                }
-
-
-                lowStockList.add(new Medicines(
-                        rs.getString("medicineId"),
-                        rs.getString("name"),
-                        rs.getString("brand"),
-                        rs.getString("batchNo"),
-                        rs.getDate("expiryDate").toLocalDate(),
-                        rs.getInt("quantity"),
-                        rs.getDouble("purchasePrice"),
-                        rs.getDouble("sellingPrice"),
-                        rs.getString("supplier"),
-                        remaining
-
-                ));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        lowStockList= homeService.loadLowStockMedicine(threshold);
+        tblLowStockItems.setItems(lowStockList);
         updateLowStockCount();
     }
 

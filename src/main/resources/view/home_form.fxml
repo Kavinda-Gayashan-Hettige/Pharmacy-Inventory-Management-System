@@ -42,11 +42,20 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9fbfc" height="166.0" layoutX="50.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9fbfc" height="166.0" layoutX="265.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f9fbfc" height="166.0" layoutX="479.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-      <Label layoutX="520.0" layoutY="80.0" style="-fx-padding:10;" text="Today's Purchase" />
+      <Label layoutX="520.0" layoutY="80.0" style="-fx-padding:10;" text="Today's Purchase">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
       <Label fx:id="lblTodaysSales" layoutX="496.0" layoutY="150.0" prefHeight="35.0" prefWidth="166.0" text="0" />
-      <Label layoutX="289.0" layoutY="83.0" style="-fx-padding:10;" text="Low Stock Medicines" />
+      <Label layoutX="289.0" layoutY="83.0" style="-fx-padding:10;" text="Low Stock Medicines">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
       <Label fx:id="lblLowStockMedicines" contentDisplay="CENTER" layoutX="288.0" layoutY="148.0" prefHeight="33.0" prefWidth="166.0" text="0" />
       <Label fx:id="lblTotalMedicine" contentDisplay="CENTER" layoutX="67.0" layoutY="148.0" prefHeight="33.0" prefWidth="166.0" text="0" textAlignment="CENTER" />
-      <Label layoutX="77.0" layoutY="82.0" style="-fx-padding:10;" text="Total Medicines" />
+      <Label layoutX="77.0" layoutY="82.0" style="-fx-padding:10;" text="Total Medicines">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
    </children>
 </AnchorPane>
